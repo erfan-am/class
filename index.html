@@ -1,0 +1,2780 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مدیریت کلاس ششم | پنل معلم</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#18212f;--muted:#6b7280;--primary:#315efb;--line:#e7ebf2;--good:#159a67;--warn:#d98a16;--bad:#d64545;--shadow:0 10px 30px rgba(25,35,60,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}.side{width:245px;background:#111827;color:#fff;padding:22px 14px;position:fixed;right:0;top:0;bottom:0;z-index:5}.brand{font-size:20px;font-weight:800;padding:8px 12px 24px}.brand small{display:block;color:#9ca3af;font-size:11px;margin-top:6px}
+.nav button{width:100%;padding:13px 14px;margin:4px 0;border-radius:11px;background:transparent;color:#d1d5db;text-align:right}.nav button.active,.nav button:hover{background:#26344f;color:#fff}
+.main{margin-right:245px;width:calc(100% - 245px);padding:24px;max-width:1500px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.title h1{margin:0;font-size:25px}.title p{margin:6px 0 0;color:var(--muted);font-size:13px}.actions{display:flex;gap:8px}.btn{background:var(--primary);color:#fff;border-radius:10px;padding:10px 15px}.btn.secondary{background:#fff;color:var(--text);border:1px solid var(--line)}.btn.danger{background:#fff;color:var(--bad);border:1px solid #f0cccc}
+.page{display:none}.page.active{display:block}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr)}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.stat .label{color:var(--muted);font-size:13px}.stat .num{font-size:28px;font-weight:800;margin-top:9px}.cards2{grid-template-columns:1.2fr .8fr;margin-top:16px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse}th,td{padding:11px 9px;border-bottom:1px solid var(--line);font-size:13px;text-align:right}th{color:var(--muted);font-weight:600;background:#fafbfc}tr:hover td{background:#fafcff}
+.badge{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px}.good{background:#e7f7ef;color:var(--good)}.warn{background:#fff3dc;color:var(--warn)}.bad{background:#fdeaea;color:var(--bad)}
+.bar{height:9px;background:#edf0f5;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--primary);border-radius:20px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.input,.select,.textarea{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none}.input:focus,.select:focus,.textarea:focus{border-color:var(--primary)}
+.search{flex:1;min-width:220px}.student-grid{grid-template-columns:repeat(3,1fr)}.student{cursor:pointer}.student:hover{transform:translateY(-2px);transition:.15s}.avatar{width:43px;height:43px;border-radius:12px;background:#edf2ff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800}.student-head{display:flex;gap:11px;align-items:center}.student h3{margin:0;font-size:15px}.student .meta{color:var(--muted);font-size:11px;margin-top:4px}.student .avg{font-size:23px;font-weight:800;margin-top:15px}
+.formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.full{grid-column:1/-1}.empty{text-align:center;padding:35px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:20;padding:15px}.modal.show{display:flex}.modalbox{background:#fff;border-radius:18px;width:min(850px,100%);max-height:90vh;overflow:auto;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center}.close{background:#f1f3f7;border-radius:8px;width:35px;height:35px}.profile{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:15px}.mini{border:1px solid var(--line);border-radius:12px;padding:13px}.mini b{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}.toast{position:fixed;bottom:20px;left:20px;background:#111827;color:#fff;padding:11px 16px;border-radius:10px;display:none;z-index:50}
+@media(max-width:950px){.side{width:76px}.brand{font-size:0;text-align:center}.brand:before{content:"۶";font-size:25px}.brand small{display:none}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:19px}.main{margin-right:76px;width:calc(100% - 76px)}.stats{grid-template-columns:repeat(2,1fr)}.student-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.main{padding:13px}.top{align-items:flex-start;gap:10px}.actions{flex-wrap:wrap}.stats,.student-grid,.cards2,.formgrid{grid-template-columns:1fr}.title h1{font-size:20px}th,td{padding:9px 5px;font-size:11px}.profile{grid-template-columns:1fr}.side{width:62px}.main{margin-right:62px;width:calc(100% - 62px)}}
+
+:root{
+ --bg:#f3f6fb;--card:#ffffff;--text:#172033;--muted:#7a8497;--primary:#5b5ce2;
+ --primary2:#7c5cff;--line:#e9edf4;--soft:#f7f8fc;--good:#17a673;--bad:#e45151;
+ --shadow:0 14px 40px rgba(31,42,68,.07)
+}
+body{background:linear-gradient(135deg,#f5f7fc 0%,#eef2f9 100%);font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+.side{background:rgba(20,27,45,.98);width:255px;padding:20px 15px;box-shadow:8px 0 30px rgba(20,27,45,.08)}
+.brand{padding:12px 14px 28px;font-size:21px}.brand small{font-weight:400;letter-spacing:.2px}
+.nav button{border-radius:13px;padding:14px 15px;margin:5px 0;color:#aeb8ca;transition:.2s}
+.nav button.active{background:linear-gradient(135deg,#5b5ce2,#7164ed);color:#fff;box-shadow:0 8px 20px rgba(91,92,226,.25)}
+.nav button:hover{background:#242d43;color:#fff}
+.main{margin-right:255px;width:calc(100% - 255px);padding:30px;max-width:1550px}
+.top{margin-bottom:25px}.title h1{font-size:28px;letter-spacing:-.5px}.title p{font-size:12px}
+.btn{border-radius:12px;padding:11px 16px;background:linear-gradient(135deg,#5b5ce2,#7164ed);box-shadow:0 7px 18px rgba(91,92,226,.16)}
+.btn.secondary{box-shadow:none;background:#fff}.card,.stat{border:1px solid rgba(227,232,241,.9);border-radius:20px;box-shadow:var(--shadow)}
+.stat{padding:20px}.stat .num{font-size:30px}
+.section-title h2{font-size:18px}.input,.select{border-radius:12px;background:#fbfcfe;border-color:#e4e8f0}
+.student{padding:19px}.student:hover{box-shadow:0 15px 35px rgba(40,50,80,.11);transform:translateY(-3px)}
+.avatar{border-radius:14px;background:linear-gradient(135deg,#eef0ff,#e8e8ff)}
+.badge{border-radius:8px}
+table{border-collapse:separate;border-spacing:0 7px}
+th{background:#f7f8fb;border:0;color:#7c8698;padding:12px}
+td{background:#fff;border:0;padding:13px 10px}
+tr td:first-child{border-radius:0 10px 10px 0}tr td:last-child{border-radius:10px 0 0 10px}
+tr:hover td{background:#fbfcff}
+.exam-card{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 20px;margin:10px 0;background:#fff;border:1px solid var(--line);border-radius:17px;cursor:pointer;transition:.18s}
+.exam-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(30,40,70,.08);border-color:#d9dcff}
+.exam-icon{width:48px;height:48px;border-radius:14px;background:#eef0ff;color:#5b5ce2;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.exam-title{font-weight:800}.exam-meta{font-size:11px;color:var(--muted);margin-top:5px}
+@media(max-width:950px){.side{width:76px}.main{margin-right:76px;width:calc(100% - 76px)}}
+@media(max-width:650px){.main{padding:14px}.side{width:62px}.main{margin-right:62px;width:calc(100% - 62px)}.top{margin-bottom:17px}.title h1{font-size:21px}}
+
+.acc-item{background:#fff;border:1px solid var(--line);border-radius:15px;margin:10px 0;overflow:hidden;transition:.2s}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;cursor:pointer;user-select:none}
+.acc-head:hover{background:#fafbff}
+.acc-title{display:flex;align-items:center;gap:12px}
+.acc-icon{width:42px;height:42px;border-radius:12px;background:#eef0ff;color:#5b5ce2;display:flex;align-items:center;justify-content:center;font-size:18px}
+.acc-name{font-weight:800;font-size:14px}
+.acc-meta{font-size:11px;color:var(--muted);margin-top:4px}
+.acc-arrow{font-size:18px;color:var(--muted);transition:.25s}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc-item.open .acc-body{max-height:2000px}
+.acc-body-inner{padding:16px 18px;border-top:1px solid var(--line)}
+
+.alert-box{background:#fff8e6;border:1px solid #f0dca8;border-radius:15px;padding:16px 18px;margin-top:12px}
+.alert-title{font-weight:800;color:#a06a00;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.alert-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #f0dca8;cursor:pointer}
+.alert-item:last-child{border-bottom:0}
+.alert-item:hover{background:#fffdf5;border-radius:8px;padding-right:8px;padding-left:8px}
+.alert-badge{background:#fdeaea;color:#d64545;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+
+#loadingScreen{position:fixed;inset:0;background:linear-gradient(135deg,#5b5ce2 0%,#7164ed 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;color:#fff;transition:opacity .5s}
+#loadingScreen.hide{opacity:0;pointer-events:none}
+.spinner{width:70px;height:70px;border:5px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-title{font-size:26px;font-weight:800;margin-top:24px;letter-spacing:-.5px}
+.loading-sub{font-size:13px;opacity:.85;margin-top:8px}
+
+#loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,#5b5ce2 0%,#7164ed 100%);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:20px;overflow:auto}
+#loginScreen.show{display:flex}
+.login-box{background:#fff;border-radius:24px;padding:36px 30px;width:min(420px,100%);box-shadow:0 30px 80px rgba(0,0,0,.25);text-align:center}
+.login-icon{width:80px;height:80px;border-radius:22px;background:linear-gradient(135deg,#eef0ff,#e8e8ff);color:#5b5ce2;display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 20px}
+.login-title{font-size:22px;font-weight:800;margin:0 0 8px}
+.login-sub{font-size:13px;color:var(--muted);margin:0 0 28px}
+.role-btn{display:flex;align-items:center;gap:14px;width:100%;padding:18px 20px;background:#fbfcfe;border:2px solid #e4e8f0;border-radius:16px;margin:10px 0;cursor:pointer;transition:.18s;text-align:right}
+.role-btn:hover{border-color:#5b5ce2;background:#f7f8ff;transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,92,226,.12)}
+.role-emoji{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.role-teacher .role-emoji{background:#eef0ff;color:#5b5ce2}
+.role-student .role-emoji{background:#e7f7ef;color:#17a673}
+.role-info strong{display:block;font-size:15px;font-weight:800;margin-bottom:4px}
+.role-info span{font-size:12px;color:var(--muted)}
+
+.login-form{display:none;text-align:right;margin-top:20px}
+.login-form.show{display:block}
+.login-form label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+.login-form input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:12px;font-size:14px;background:#fbfcfe;outline:none;text-align:center;letter-spacing:1px}
+.login-form input:focus{border-color:#5b5ce2;background:#fff}
+.form-actions{display:flex;gap:10px;margin-top:20px}
+.form-actions .btn{flex:1;padding:13px}
+.login-error{background:#fdeaea;color:#d64545;padding:10px;border-radius:10px;font-size:12px;margin-top:12px;display:none}
+.login-error.show{display:block}
+
+#studentPanel{display:none;position:fixed;inset:0;background:linear-gradient(135deg,#f5f7fc 0%,#eef2f9 100%);z-index:998;overflow:auto}
+#studentPanel.show{display:block}
+.student-panel-inner{max-width:800px;margin:0 auto;padding:25px 18px 60px}
+.sp-header{background:linear-gradient(135deg,#17a673,#22c48a);color:#fff;border-radius:22px;padding:24px;text-align:center;margin-bottom:18px;box-shadow:0 15px 40px rgba(23,166,115,.25)}
+.sp-header h2{margin:0 0 8px;font-size:21px}
+.sp-header p{margin:0;font-size:13px;opacity:.9}
+.sp-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}
+.sp-card h3{margin:0 0 14px;font-size:16px;display:flex;align-items:center;gap:8px}
+.sp-tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.sp-tab{padding:10px 16px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:13px;cursor:pointer;white-space:nowrap}
+.sp-tab.active{background:linear-gradient(135deg,#5b5ce2,#7164ed);color:#fff;border-color:transparent}
+.task-item{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--line);border-radius:14px;margin:10px 0;transition:.18s;background:#fff}
+.task-item.done{background:#f0faf4;border-color:#c4ecd5;opacity:.75}
+.task-check{width:26px;height:26px;accent-color:#17a673;cursor:pointer;flex-shrink:0}
+.task-info{flex:1}
+.task-title{font-weight:800;font-size:14px}
+.task-desc{font-size:12px;color:var(--muted);margin-top:4px}
+.task-meta{font-size:11px;color:var(--muted);margin-top:4px}
+.task-item.done .task-title{text-decoration:line-through;color:#6b7280}
+.grade-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+.grade-row:last-child{border-bottom:0}
+.grade-row .sub{font-weight:600}
+
+.reminder-box{background:linear-gradient(135deg,#fff4e6,#ffe9cc);border:1px solid #f0d29a;border-radius:18px;padding:18px;margin:12px 0}
+.reminder-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed #f0d29a}
+.reminder-item:last-child{border-bottom:0}
+.reminder-icon{width:44px;height:44px;border-radius:13px;background:#fff;color:#d98a16;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.reminder-info{flex:1}
+.reminder-title{font-weight:800;font-size:14px;color:#8a5a00}
+.reminder-meta{font-size:11px;color:#a06a00;margin-top:4px}
+
+/* پنل و امتیاز گروه‌ها */
+.group-list{display:grid;gap:12px}
+.group-card{cursor:pointer;transition:.15s;border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card,#fff)}
+.group-card:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.07)}
+.group-card .group-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.group-card .group-score{font-size:24px;font-weight:900}
+.group-rank{font-size:18px;font-weight:900;min-width:38px}
+.group-panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:9999;display:flex;align-items:center;justify-content:center;padding:14px}
+.group-panel{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--card,#fff);border-radius:20px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25);direction:rtl}
+.group-panel h2{margin:0 0 12px;font-size:25px}
+.group-panel .score-box{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px;margin:12px 0;border-radius:16px;background:var(--bg,#f5f7fa)}
+.group-panel .score-number{font-size:40px;font-weight:900}
+.group-score-form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.group-score-form input{width:130px;font-size:20px;padding:10px;border:1px solid var(--line);border-radius:10px}
+.group-members{display:grid;gap:8px;margin-top:12px}
+.group-member{padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+
+
+.sport-pick{padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--card,#fff)}
+.sport-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;max-height:360px;overflow:auto;padding:5px;margin:10px 0}
+.sport-list label{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid var(--line);border-radius:11px;cursor:pointer;font-size:17px;transition:.15s}
+.sport-list label:hover{border-color:#5b5ce2;background:#f7f8ff}
+.sport-table-wrap{width:100%;overflow-x:auto;margin-top:10px;border-radius:14px}
+.sport-table{min-width:650px;width:100%;border-collapse:collapse;text-align:center;font-size:20px}
+.sport-table th,.sport-table td{border:1px solid var(--line);padding:13px 10px;min-width:170px;height:48px}
+.sport-table th{font-size:21px;font-weight:900;background:var(--bg,#f3f5f8)}
+.sport-table th strong{font-size:22px}
+.sport-table .waiting{font-size:18px;padding:24px}
+.sport-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+
+/* ===== جدول امتیازات ===== */
+.scoreboard-table{width:100%;border-collapse:separate;border-spacing:0 6px}
+.scoreboard-table th{background:#f7f8fb;border:0;color:#7c8698;padding:12px;font-size:12px}
+.scoreboard-table td{background:#fff;border:0;padding:12px 10px;font-size:13px;text-align:right}
+.scoreboard-table tr td:first-child{border-radius:0 12px 12px 0}
+.scoreboard-table tr td:last-child{border-radius:12px 0 0 12px}
+.scoreboard-table tr:hover td{background:#fbfcff}
+.scoreboard-table tr.top1 td{background:linear-gradient(90deg,#fff8e1,#fffdf5)}
+.scoreboard-table tr.top2 td{background:linear-gradient(90deg,#f3f4f6,#fafbfc)}
+.scoreboard-table tr.top3 td{background:linear-gradient(90deg,#fdf0e6,#fffaf5)}
+
+/* ===== دکمه‌های امتیاز دستی ===== */
+.score-btns{display:flex;gap:4px;justify-content:center}
+.score-btn{
+  width:30px;height:30px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;cursor:pointer;
+  transition:.15s;border:1px solid transparent;
+}
+.score-btn.plus{background:#e7f7ef;color:#159a67}
+.score-btn.plus:hover{background:#159a67;color:#fff;transform:scale(1.1)}
+.score-btn.minus{background:#fdeaea;color:#d64545}
+.score-btn.minus:hover{background:#d64545;color:#fff;transform:scale(1.1)}
+.score-btns.wide .score-btn{width:38px;font-size:13px}
+
+/* ===== مودال رفتار و مبصر و آزمون ===== */
+.behavior-overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:9999;display:flex;align-items:center;justify-content:center;padding:14px}
+.behavior-panel{width:min(760px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25);direction:rtl}
+.bh-student-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:7px;max-height:300px;overflow:auto;padding:5px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe}
+.bh-student-list label{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:14px;background:#fff;transition:.15s}
+.bh-student-list label:hover{border-color:#5b5ce2;background:#f7f8ff}
+.bh-student-list input[type=checkbox]{width:18px;height:18px;accent-color:#5b5ce2;cursor:pointer}
+.bh-student-list label.selected{background:#eef0ff;border-color:#5b5ce2}
+
+/* ===== مودال مبصر ===== */
+.monitor-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px 13px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  cursor:pointer;
+  font-size:14px;
+  background:#fff;
+  transition:.15s;
+}
+.monitor-item:hover{
+  border-color:#5b5ce2;
+  background:#f7f8ff;
+}
+.monitor-item.selected{
+  background:#eef0ff;
+  border-color:#5b5ce2;
+  box-shadow:0 0 0 2px rgba(91,92,226,.15);
+}
+.monitor-item input[type=radio]{
+  width:18px;
+  height:18px;
+  accent-color:#5b5ce2;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+/* ===== طرح درس سالانه ===== */
+.lesson-plan-wrap{margin-top:18px;background:#fff;border:1px solid #e7e8ef;border-radius:22px;padding:16px;overflow:hidden;position:relative}
+.lesson-plan-wrap:before,.lesson-plan-wrap:after{content:"";position:absolute;border-radius:0 0 80px 0;pointer-events:none;z-index:0}
+.lesson-plan-wrap:before{top:0;right:0;width:135px;height:74px;background:linear-gradient(135deg,#ffd77c,#f7c85c);border-radius:0 0 0 85px}
+.lesson-plan-wrap:after{bottom:0;left:0;width:115px;height:55px;background:linear-gradient(135deg,#3d78b8,#235a93);border-radius:0 70px 0 0}
+.lesson-plan-inner{position:relative;z-index:1;max-width:1180px;margin:auto;background:#fffdf8;border:1px solid #eee5cf;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(35,52,80,.06)}
+.lesson-plan-hero{text-align:center;padding:8px 8px 16px;position:relative}
+.lesson-plan-kicker{font-size:24px;font-weight:900;color:#172d4d;margin:0 0 4px}
+.lesson-plan-title{font-size:38px;line-height:1.35;font-weight:900;margin:0;background:linear-gradient(90deg,#2e8b57,#164b8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lesson-plan-subtitle{display:inline-block;margin-top:8px;padding:8px 24px;border:1px solid #8394ad;border-radius:28px;background:#f8fbff;color:#20365a;font-size:14px;font-weight:800}
+.lesson-plan-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 16px}
+.lesson-plan-tab{border:1px solid #d9dce5;background:#fff;border-radius:14px;padding:10px 18px;font-weight:900;color:#233a5d;cursor:pointer;transition:.15s}
+.lesson-plan-tab.active{background:linear-gradient(135deg,#1f4f88,#2d6aa7);color:#fff;border-color:#1f4f88;box-shadow:0 6px 16px rgba(31,79,136,.18)}
+.lesson-plan-panel{display:none}.lesson-plan-panel.active{display:block}
+.lesson-table-wrap{overflow:auto;border-radius:17px;border:1px solid #c9d5df;background:#fff}
+.lesson-table{width:100%;border-collapse:separate;border-spacing:0;min-width:900px;font-size:13px}
+.lesson-table th{background:#174d83;color:#fff;font-size:14px;padding:12px 9px;border:0;text-align:center;font-weight:900}
+.lesson-table th:first-child{border-radius:0 14px 0 0}.lesson-table th:last-child{border-radius:14px 0 0 0}
+.lesson-table td{padding:9px 8px;border-bottom:1px solid #e7e8e9;text-align:center;vertical-align:middle;background:#fff}
+.lesson-table td.lesson-content{text-align:right;line-height:1.75}
+.lesson-table td.lesson-topic{text-align:center;font-weight:800}
+.lesson-table tr:last-child td{border-bottom:0}
+.lesson-month{font-size:19px;font-weight:900;color:#16263d;min-width:95px;border-right:1px solid #d8d8d8!important}
+.lesson-week{font-weight:900;font-size:15px;min-width:58px}
+.lesson-check{width:24px;height:24px;accent-color:#159a67;cursor:pointer;vertical-align:middle}
+.lesson-done td{background:#f0faf4!important}.lesson-done .lesson-content,.lesson-done .lesson-topic{color:#63716a}.lesson-done .lesson-content{text-decoration:line-through;text-decoration-thickness:1px}
+.lesson-done .lesson-month{background:#e7f7ef!important}
+.month-mehr td{background:#fbfff7}.month-aban td{background:#f5faff}.month-azar td{background:#fbf8ff}.month-dey td{background:#fffaf2}.month-bahman td{background:#fff7fa}.month-esfand td{background:#f4fbfb}.month-farvardin td{background:#f8fff6}.month-ordibehesht td{background:#fffaf0}.month-khordad td{background:#f5f9ff}
+.month-mehr .lesson-month{background:#dff0d2!important}.month-aban .lesson-month{background:#dcecfb!important}.month-azar .lesson-month{background:#e9ddfb!important}.month-dey .lesson-month{background:#fae8bd!important}.month-bahman .lesson-month{background:#f8d9e3!important}.month-esfand .lesson-month{background:#d9f1ef!important}.month-farvardin .lesson-month{background:#dff1ce!important}.month-ordibehesht .lesson-month{background:#fbe5ae!important}.month-khordad .lesson-month{background:#dbeaf8!important}
+.lesson-bottom-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:15px}
+.lesson-info-card{border:1px solid #dfe3ea;border-radius:15px;padding:12px;background:#fff;min-height:105px}.lesson-info-card h4{margin:0 0 7px;font-size:13px}.lesson-info-card ul{margin:0;padding-right:17px;color:#475569;font-size:11px;line-height:1.9}.lesson-year{background:#edf6fb;border-color:#b8d5e8;text-align:center}.lesson-year .big{font-size:18px;font-weight:900;color:#174d83;margin-top:12px}
+.lesson-footer{text-align:center;color:#536276;font-size:12px;margin-top:14px;font-weight:700}
+
+/* ===== دفتر نمرات تخصصی؛ هم‌سبک طرح درس سالانه ===== */
+.gradebook-wrap{margin-top:18px;background:#fff;border:1px solid #e7e8ef;border-radius:22px;padding:16px;overflow:hidden;position:relative}
+.gradebook-wrap:before,.gradebook-wrap:after{content:"";position:absolute;pointer-events:none;z-index:0}
+.gradebook-wrap:before{top:0;right:0;width:145px;height:78px;background:linear-gradient(135deg,#ffd77c,#f7c85c);border-radius:0 0 0 90px}
+.gradebook-wrap:after{bottom:0;left:0;width:120px;height:58px;background:linear-gradient(135deg,#3d78b8,#235a93);border-radius:0 72px 0 0}
+.gradebook-inner{position:relative;z-index:1;max-width:1180px;margin:auto;background:#fffdf8;border:1px solid #eee5cf;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(35,52,80,.06)}
+.gradebook-hero{text-align:center;padding:8px 8px 15px}
+.gradebook-kicker{font-size:24px;font-weight:900;color:#172d4d;margin-bottom:4px}
+.gradebook-title{font-size:36px;line-height:1.35;font-weight:900;margin:0;background:linear-gradient(90deg,#2e8b57,#164b8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gradebook-subtitle{display:inline-block;margin-top:8px;padding:8px 24px;border:1px solid #8394ad;border-radius:28px;background:#f8fbff;color:#20365a;font-size:14px;font-weight:800}
+.gradebook-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 16px}
+.gradebook-tab{border:1px solid #d9dce5;background:#fff;border-radius:14px;padding:10px 17px;font-weight:900;color:#233a5d;cursor:pointer;transition:.15s}
+.gradebook-tab.active{background:linear-gradient(135deg,#1f4f88,#2d6aa7);color:#fff;border-color:#1f4f88;box-shadow:0 6px 16px rgba(31,79,136,.18)}
+.gradebook-tab.math.active{background:linear-gradient(135deg,#236a9e,#2e8b57)}
+.gradebook-tab.science.active{background:linear-gradient(135deg,#197b73,#3b9c73)}
+.gradebook-tab.persian.active,.gradebook-tab.writing.active{background:linear-gradient(135deg,#8d3f67,#b85a78)}
+.gradebook-tab.social.active{background:linear-gradient(135deg,#8a5a2d,#c28a45)}
+.gradebook-tab.gift.active{background:linear-gradient(135deg,#7c4b96,#b16bc7)}
+.gradebook-tab.quran.active{background:linear-gradient(135deg,#176b59,#31957b)}
+.gradebook-tab.sport.active{background:linear-gradient(135deg,#23618f,#4c8bb5)}
+.gradebook-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:8px 0 14px}
+.gradebook-summary{display:flex;gap:8px;flex-wrap:wrap}
+.gb-stat{min-width:125px;background:#fff;border:1px solid #e4e5ea;border-radius:14px;padding:9px 13px;display:flex;flex-direction:column;gap:2px}
+.gb-stat b{font-size:17px;color:#1d426d}.gb-stat span{font-size:11px;color:#7a8497}
+.gradebook-table-wrap{overflow:auto;border:1px solid #d9dfeb;border-radius:15px;background:#fff}
+.gradebook-table{width:100%;min-width:980px;border-collapse:separate;border-spacing:0;font-size:13px}
+.gradebook-table th{background:#164b8f;color:#fff;padding:12px 9px;border-left:1px solid rgba(255,255,255,.25);white-space:nowrap}
+.gradebook-table th:first-child{border-radius:0 13px 0 0}.gradebook-table th:last-child{border-radius:13px 0 0 0}
+.gradebook-table td{padding:10px 8px;border-bottom:1px solid #e8ebf0;border-left:1px solid #edf0f4;text-align:center;background:#fff}
+.gradebook-table tbody tr:nth-child(even) td{background:#fbfcfe}
+.gradebook-table tbody tr:hover td{background:#f5f9ff}
+.gb-rownum{color:#718096;font-weight:800}.gb-student{text-align:right!important;white-space:nowrap;color:#21324d}.gb-score{display:inline-block;min-width:75px;padding:6px 7px;border-radius:10px;font-weight:800;font-size:11px}.empty-score{color:#9aa3b2;background:#f3f5f8}.q-excellent{background:#dff2df;color:#28733b}.q-good{background:#e4effa;color:#275e91}.q-ok{background:#fff0d7;color:#996018}.q-needs{background:#fde1e5;color:#9a3341}.q-other{background:#edf0f5;color:#566276}.gb-average{background:#f7fafc!important;color:#173d69}.gradebook-note{margin-top:12px;padding:11px 14px;border-radius:13px;background:#f8fbff;border:1px solid #dce7f2;color:#516174;font-size:12px}.gradebook-note span{margin-left:5px}.gradebook-empty{text-align:center;padding:42px 20px;background:#fff;border:1px dashed #cfd8e5;border-radius:16px}.gb-empty-icon{font-size:48px;margin-bottom:8px}.gradebook-empty h3{margin:5px 0;color:#19365a}.gradebook-empty p{color:#7a8497;font-size:13px}.gradebook-footer{text-align:center;margin-top:14px;color:#6d7890;font-size:11px;font-weight:700}
+@media(max-width:900px){.lesson-plan-title{font-size:30px}.lesson-bottom-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.gradebook-wrap{padding:8px;border-radius:16px}.gradebook-inner{padding:10px}.gradebook-kicker{font-size:18px}.gradebook-title{font-size:25px}.gradebook-subtitle{font-size:11px;padding:7px 14px}.gradebook-tab{padding:9px 12px;font-size:12px}.gradebook-toolbar{align-items:stretch}.gradebook-summary{width:100%}.gb-stat{flex:1;min-width:95px}.gradebook-wrap .btn{font-size:12px}.gradebook-table{min-width:980px;font-size:12px}.gradebook-empty{padding:32px 14px}.lesson-plan-wrap{padding:8px;border-radius:16px}.lesson-plan-inner{padding:10px}.lesson-plan-kicker{font-size:18px}.lesson-plan-title{font-size:25px}.lesson-plan-subtitle{font-size:11px;padding:7px 14px}.lesson-table{min-width:780px;font-size:12px}.lesson-bottom-grid{grid-template-columns:1fr}.lesson-plan-tab{padding:9px 13px;font-size:12px}}
+
+
+/* === FIXED TOP HORIZONTAL NAVIGATION === */
+.side{position:fixed !important;right:0 !important;left:0 !important;top:0 !important;bottom:auto !important;width:100% !important;height:auto !important;display:flex !important;align-items:center !important;padding:8px 14px !important;z-index:100 !important;}
+.brand{display:none !important;}
+.nav{width:100% !important;display:flex !important;flex-direction:row !important;align-items:center !important;justify-content:center !important;gap:7px !important;overflow-x:auto !important;overflow-y:hidden !important;scrollbar-width:none !important;}
+.nav::-webkit-scrollbar{display:none !important;}
+.nav button{width:auto !important;flex:0 0 auto !important;margin:0 !important;padding:11px 13px !important;white-space:nowrap !important;text-align:center !important;}
+.main{margin-right:0 !important;margin-left:0 !important;width:100% !important;max-width:none !important;padding-top:105px !important;}
+@media(max-width:950px){.side{width:100% !important;height:auto !important;padding:7px 8px !important}.nav{justify-content:flex-start !important;gap:6px !important}.nav button{font-size:12px !important;padding:10px 12px !important}.main{margin-right:0 !important;width:100% !important;padding-top:92px !important}}
+@media(max-width:650px){.side{width:100% !important;padding:7px 6px !important}.nav{justify-content:flex-start !important}.nav button{font-size:11px !important;padding:9px 10px !important}.main{margin-right:0 !important;width:100% !important;padding:88px 14px 14px !important}}
+</style>
+</head>
+<body>
+
+<div id="loadingScreen">
+  <div class="spinner"></div>
+  <div class="loading-title">مدیریت کلاس ششم</div>
+  <div class="loading-sub">در حال بارگذاری...</div>
+</div>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <div id="loginMain">
+      <div class="login-icon">🎓</div>
+      <h2 class="login-title">خوش آمدید</h2>
+      <p class="login-sub">لطفاً نقش خود را انتخاب کنید</p>
+      <button class="role-btn role-teacher" onclick="showTeacherLogin()">
+        <div class="role-emoji">👨‍🏫</div>
+        <div class="role-info">
+          <strong>ورود معلم</strong>
+          <span>مدیریت کلاس، نمرات، حضور و غیاب</span>
+        </div>
+      </button>
+      <button class="role-btn role-student" onclick="showStudentLogin()">
+        <div class="role-emoji">👨‍🎓</div>
+        <div class="role-info">
+          <strong>ورود دانش‌آموز</strong>
+          <span>مشاهده نمرات، تکالیف و کارنامه</span>
+        </div>
+      </button>
+    </div>
+
+    <div id="teacherLoginForm" class="login-form">
+      <h2 class="login-title" style="text-align:center">ورود معلم</h2>
+      <p class="login-sub" style="text-align:center">رمز عبور را وارد کنید</p>
+      <label>رمز عبور</label>
+      <input type="password" id="teacherPassword" placeholder="••••" onkeydown="if(event.key==='Enter')doTeacherLogin()">
+      <div id="teacherError" class="login-error">رمز عبور اشتباه است</div>
+      <div class="form-actions">
+        <button class="btn" onclick="doTeacherLogin()">ورود</button>
+        <button class="btn secondary" onclick="backToMain()">بازگشت</button>
+      </div>
+    </div>
+
+    <div id="studentLoginForm" class="login-form">
+      <h2 class="login-title" style="text-align:center">ورود دانش‌آموز</h2>
+      <p class="login-sub" style="text-align:center">کد ملی خود را وارد کنید</p>
+      <label>نام کاربری (کد ملی)</label>
+      <input type="text" id="studentUsername" placeholder="کد ملی" style="margin-bottom:10px">
+      <label>رمز عبور (کد ملی)</label>
+      <input type="password" id="studentPassword" placeholder="کد ملی" onkeydown="if(event.key==='Enter')doStudentLogin()">
+      <div id="studentError" class="login-error">کد ملی یافت نشد</div>
+      <div class="form-actions">
+        <button class="btn" onclick="doStudentLogin()">ورود</button>
+        <button class="btn secondary" onclick="backToMain()">بازگشت</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="studentPanel">
+  <div class="student-panel-inner">
+    <div class="sp-header">
+      <h2 id="spName">پنل دانش‌آموز</h2>
+      <p>کلاس ششم — دبستان فرهنگیان | معلم: عرفان امینی</p>
+    </div>
+
+    <div class="sp-tabs">
+      <div class="sp-tab active" onclick="spShowTab('grades',this)">📊 نمرات</div>
+      <div class="sp-tab" onclick="spShowTab('tasks',this)">📚 تکالیف</div>
+      <div class="sp-tab" onclick="spShowTab('report',this)">🧾 کارنامه</div>
+      <div class="sp-tab" onclick="spShowTab('absence',this)">📅 غیبت‌ها</div>
+    </div>
+
+    <div id="spTabGrades" class="sp-card">
+      <h3>📊 نمرات من</h3>
+      <div id="spGradesList"></div>
+    </div>
+
+    <div id="spTabTasks" class="sp-card" style="display:none">
+      <h3>📚 تکالیف من</h3>
+      <p class="muted" style="margin-top:-8px;margin-bottom:12px">تا وقتی تیک نزنید، تکلیف در لیست باقی می‌ماند.</p>
+      <div id="spTasksList"></div>
+    </div>
+
+    <div id="spTabReport" class="sp-card" style="display:none">
+      <h3>🧾 کارنامه من</h3>
+      <button class="btn" onclick="spMakeReport()">نمایش کارنامه</button>
+      <div id="spReportArea" style="margin-top:14px"></div>
+    </div>
+
+    <div id="spTabAbsence" class="sp-card" style="display:none">
+      <h3>📅 غیبت‌های من</h3>
+      <div id="spAbsenceList"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px">
+      <button class="btn secondary" onclick="logout()">🚪 خروج</button>
+    </div>
+  </div>
+</div>
+
+<div class="app" id="teacherPanel" style="display:none">
+<aside class="side">
+  <div class="brand">کلاس ششم<small>پنل مدیریت معلم</small></div>
+  <div class="nav">
+    <button class="active" data-page="dashboard">🏠 داشبورد</button>
+    <button data-page="students">👨‍🎓 دانش‌آموزان</button>
+    <button data-page="grades">📝 ثبت نمرات</button>
+    <button data-page="gradebook">📋 دفتر نمرات</button>
+    <button data-page="behavior">🧭 رفتار و انضباط</button>
+    <button data-page="monthly">📆 گزارش ماهانه</button>
+    <button data-page="attendance">📅 حضور و غیاب</button>
+    <button data-page="tasks">📚 تکالیف</button>
+    <button data-page="analysis">📊 تحلیل کلاس</button>
+    <button data-page="report">🧾 کارنامه</button>
+    <button data-page="backup">⚙️ پشتیبان و تنظیمات</button>
+  </div>
+</aside>
+
+<main class="main">
+<header class="top">
+ <div class="title"><h1 id="pageTitle">داشبورد کلاس</h1><p>مدیریت دانش‌آموزان پایه ششم ابتدایی</p></div>
+ <div class="actions">
+   <button class="btn secondary" onclick="logout()">🚪 خروج</button>
+   <button class="btn" onclick="showPage('grades')">＋ ثبت نمره</button>
+ </div>
+</header>
+
+
+<section id="gradebook" class="page">
+  <div class="gradebook-wrap">
+    <div class="gradebook-inner">
+      <div class="gradebook-hero">
+        <div class="gradebook-kicker">دفتر نمرات تخصصی</div>
+        <h2 class="gradebook-title" id="gradebookTitle">دفتر نمرات ریاضی</h2>
+        <div class="gradebook-subtitle">دفتر مستقل هر درس | ثبت، مشاهده و پیگیری ارزشیابی‌های دانش‌آموزان</div>
+      </div>
+      <div id="gradebookTabs" class="gradebook-tabs"></div>
+      <div class="gradebook-toolbar">
+        <div class="gradebook-summary" id="gradebookSummary"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn secondary" onclick="renderGradebook()">↻ بروزرسانی</button>
+          <button class="btn" onclick="openNewExamForSubject()">＋ ثبت ارزشیابی این درس</button>
+        </div>
+      </div>
+      <div id="gradebookArea"></div>
+      <div class="gradebook-footer">سال تحصیلی ۱۴۰۴ - ۱۴۰۵ | معلم: عرفان امینی</div>
+    </div>
+  </div>
+</section>
+<section id="behavior" class="page"><div class="card"><div class="section-title"><div><h2>🧭 رفتار و انضباط</h2><span class="muted">سابقه رفتاری دانش‌آموزان</span></div><button class="btn" onclick="addBehavior()">＋ ثبت مورد جدید</button></div><div id="behaviorArea"></div></div></section>
+<section id="monthly" class="page"><div class="card"><div class="section-title"><div><h2>📆 گزارش ماهانه</h2><span class="muted">خلاصه خودکار نمرات، غیبت و رفتار</span></div><button class="btn" onclick="renderMonthly()">↻ تولید گزارش</button></div><div id="monthlyArea"><div class="empty">برای تولید گزارش روی «تولید گزارش» بزنید.</div></div></div></section>
+
+<section id="dashboard" class="page active">
+ <div class="grid stats">
+  <div class="stat"><div class="label">تعداد دانش‌آموزان</div><div class="num" id="sCount">40</div></div>
+  <div class="stat"><div class="label">ارزیابی غالب کلاس</div><div class="num" id="sAvg">—</div></div>
+  <div class="stat"><div class="label">تعداد نمرات ثبت‌شده</div><div class="num" id="sGrades">0</div></div>
+  <div class="stat"><div class="label">نیازمند توجه</div><div class="num" id="sRisk">0</div></div>
+ </div>
+
+ <!-- ===== جدول امتیازات ===== -->
+ <div class="card" style="margin-top:16px">
+   <div class="section-title">
+     <div><h2>🏆 جدول امتیازات کلاس</h2>
+     <span class="muted">هر «خیلی خوب» = ۲ امتیاز مثبت | هر مورد انضباطی = ۱ امتیاز منفی | دکمه‌های + و − برای امتیاز دستی</span></div>
+     <button class="btn secondary" onclick="renderScoreboard()">↻ بروزرسانی</button>
+   </div>
+   <div id="scoreboardArea"></div>
+ </div>
+
+ <!-- ===== Reminders Section ===== -->
+ <div class="card" style="margin-top:16px">
+   <div class="section-title">
+     <div><h2>⏰ یادآوری‌ها</h2><span class="muted">زمان امتحان، تکالیف و رویدادهای مهم</span></div>
+     <button class="btn" onclick="addReminder()">＋ افزودن یادآوری</button>
+   </div>
+   <div id="remindersList"></div>
+ </div>
+
+ <div class="card" style="margin-top:16px">
+   <div class="section-title"><h2>📌 تکالیف در جریان</h2><span class="muted">تکالیفی که هنوز مهلت دارند</span></div>
+   <div id="remindersTasks"></div>
+ </div>
+
+ <div class="grid cards2" style="margin-top:16px">
+  <div class="card"><div class="section-title"><div><h2>👥 گروه‌بندی کلاس</h2><span class="muted">نام گروه، اعضا و سرگروه</span></div><button class="btn" onclick="addGroup()">＋ گروه جدید</button></div><div id="groupsArea"></div></div>
+  <div class="card"><div class="section-title"><div><h2>⭐ مبصر کلاس</h2><span class="muted">انتخاب مبصر کلاس</span></div><button class="btn secondary" onclick="setClassMonitor()">تغییر مبصر</button></div><div id="monitorArea"></div></div>
+</div>
+<div class="card" style="margin-top:16px"><div class="section-title"><div><h2>🏃 زنگ ورزش</h2><span class="muted">اول سرگروه‌ها را انتخاب کن، سپس شرکت‌کنندگان را مشخص کن و در نهایت قرعه‌کشی بزن.</span></div></div><div id="sportArea"></div></div>
+ <div id="alertBoxWrap" style="margin-top:16px"></div>
+
+ <!-- ===== طرح درس سالانه ===== -->
+ <div class="lesson-plan-wrap">
+   <div class="lesson-plan-inner">
+     <div class="lesson-plan-hero">
+       <div class="lesson-plan-kicker">طرح درس سالانه</div>
+       <h2 class="lesson-plan-title" id="lessonPlanTitle">ریاضی ششم ابتدایی</h2>
+       <div class="lesson-plan-subtitle">برنامه‌ریزی منظم برای یادگیری بهتر</div>
+     </div>
+     <div id="lessonPlanTabs" class="lesson-plan-tabs"></div>
+     <div id="lessonPlanPanels"></div>
+     <div class="lesson-footer">یادگیری، امروز؛ ساختن آینده‌ای روشن</div>
+   </div>
+ </div>
+
+ <div class="grid cards2">
+  <div class="card"><div class="section-title"><h2>آخرین نمرات</h2><span class="muted">آخرین ثبت‌ها</span></div><div id="recentGrades"></div></div>
+  <div class="card"><div class="section-title"><h2>میانگین دروس</h2></div><div id="subjectStats"></div></div>
+ </div>
+</section>
+
+<section id="students" class="page">
+ <div class="card">
+  <div class="toolbar"><input id="studentSearch" class="input search" placeholder="جستجوی نام، نام خانوادگی یا کد ملی..." oninput="renderStudents()"></div>
+  <div id="studentGrid" class="grid student-grid"></div>
+ </div>
+</section>
+
+<section id="grades" class="page">
+ <div class="card">
+  <div class="section-title">
+   <div><h2>آزمون‌ها و ارزشیابی‌ها</h2><span class="muted">هر آزمون را باز کن تا نمرات همان آزمون را ببینی.</span></div>
+   <button class="btn" onclick="newExam()">＋ آزمون جدید</button>
+  </div>
+  <div id="examList"></div>
+ </div>
+ <div id="examEditor" class="card" style="margin-top:16px;display:none"></div>
+</section>
+
+<section id="attendance" class="page">
+ <div class="card">
+  <div class="section-title">
+   <div><h2>حضور و غیاب</h2><span class="muted">روی تاریخ مورد نظر کلیک کنید.</span></div>
+   <button class="btn" onclick="showNewAttendanceDate()">＋ تاریخ جدید</button>
+  </div>
+  <div id="attendanceDates"></div>
+  <div id="attendanceEditor" style="margin-top:18px"></div>
+  <div id="absenceHistory" style="margin-top:18px"></div>
+ </div>
+</section>
+
+<section id="tasks" class="page">
+ <div class="card">
+  <div class="section-title"><h2>📚 تکالیف</h2><button class="btn" onclick="addTask()">＋ افزودن تکلیف</button></div>
+  <div id="tasksList"></div>
+ </div>
+ <div class="card" style="margin-top:16px">
+  <div class="section-title"><h2>⚠️ تکلیف نیاورده‌ها (بیش از یک بار)</h2><span class="muted">دانش‌آموزانی که مکرراً تکلیف نیاورده‌اند</span></div>
+  <div id="taskOffendersList"></div>
+ </div>
+</section>
+
+<section id="analysis" class="page">
+ <div class="grid cards2">
+  <div class="card"><div class="section-title"><h2>تحلیل دروس</h2></div><div id="analysisSubjects"></div></div>
+  <div class="card"><div class="section-title"><h2>دانش‌آموزان نیازمند توجه</h2></div><div id="riskList"></div></div>
+ </div>
+</section>
+
+<section id="report" class="page">
+ <div class="card">
+  <div class="toolbar">
+    <select id="reportStudent" class="select"></select>
+    <select id="reportDate" class="select"></select>
+    <button class="btn" onclick="makeReport()">نمایش کارنامه</button>
+    <button class="btn secondary" onclick="printReport()">🖨 چاپ</button>
+  </div>
+  <div id="reportArea" class="empty">دانش‌آموز و تاریخ را انتخاب کنید.</div>
+ </div>
+</section>
+
+<section id="backup" class="page">
+ <div class="card">
+  <div class="section-title"><h2>پشتیبان‌گیری و تنظیمات</h2></div>
+  <p class="muted">تمام اطلاعات در LocalStorage ذخیره می‌شوند.</p>
+  <div class="card" style="background:#fafbfc;margin-bottom:14px;box-shadow:none">
+ <h3 style="margin-top:0">💾 پشتیبان‌گیری JSON</h3>
+ <div class="toolbar"><button class="btn" onclick="exportData()">⬇ دانلود پشتیبان JSON</button><label class="btn secondary">⬆ بازیابی پشتیبان JSON<input type="file" accept=".json" hidden onchange="importData(event)"></label></div>
+ </div>
+ <button class="btn danger" onclick="clearAll()">پاک کردن اطلاعات ثبت‌شده</button>
+ </div>
+</section>
+</main>
+</div>
+
+<div id="modal" class="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle"></h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const TEACHER_PASSWORD = "1377";
+
+function todayKey(){
+  return new Intl.DateTimeFormat("fa-IR-u-ca-persian",{year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()).replace(/-/g,"/");
+}
+
+const students=[
+["علی","ارسلان آزادی","۲۲۵۰۹۵۵۲","۰۹۱۰۰۰۶۷۳۲۲"],["امیرحسین","احمدپور","۷۵۵۰۰۳۶۶۸۳","۰۹۱۹۴۲۴۱۵۱۷"],["علی اصغر","احمدی هریس","۱۷۳۴۳۳۹۶۰","۰۹۱۲۱۷۷۵۷۳۰"],["سامیار","استیری","۲۷۱۶۹۶۵۰","۰۹۱۹۱۳۹۶۱۹۵"],["سهیل","بداغی","۷۵۵۰۰۳۴۷۹۶","۰۹۱۲۶۴۳۵۰۹۱"],["ابوالفضل","برات زاده","۶۵۸۰۶۱۱۴۲۱","۰۹۱۹۶۵۸۲۵۲۲"],["امیرعلی","پاداش کندوان","۷۵۵۰۰۳۸۸۴۸","۰۹۳۵۵۱۵۷۶۴۰"],["امیرعباس","تاجمیری","۷۵۵۰۰۴۲۹۵۰","۰۹۳۶۶۶۲۷۷۹۸"],["محمدیارسا","تقسان بنگجه","۷۵۵۰۰۵۴۷۹۷","۰۹۱۲۶۱۰۳۶۸"],["علی","حاجی زادگان","۴۸۲۰۲۹۸۹۷","۰۹۱۲۳۸۹۱۴۶۲"],["امیرعباس","حامدی","۲۷۲۳۱۱۶۱","۰۹۱۹۲۴۵۵۵۸۹"],["ماهان","خانزاده کوه کناری","۷۵۵۰۰۴۷۵۸۸","۰۹۱۹۲۴۵۵۵۹۰"],["ابوالفضل","خسروی","۴۸۲۰۷۲۰۵۹","۰۹۱۹۱۱۹۶۴۱۷"],["امیرحسین","رضائی دوتوئی","۷۵۵۰۰۳۲۴۵۹","۰۹۱۲۲۳۹۴۰۷۳"],["محمدطاها","سهرابی","۴۰۲۰۸۱۹۴۰۸","۰۹۱۲۰۱۴۰۷۶۳"],["امین علی","صبیری فیروزآباد","۴۸۲۰۱۷۵۳۸","۰۹۳۷۴۴۶۵۴۸۷"],["سهیل","صفری","۱۴۵۳۰۴۱۱۶۸","۰۹۱۹۰۲۰۴۷۳۵"],["علیرضا","طهماسبی","۷۵۵۰۰۳۸۴۶۵","۰۹۱۹۴۷۲۳۹۱۰"],["محمدرضا","عبداللهی","۷۵۵۰۰۵۲۸۴۰","۰۹۱۲۳۸۸۳۷۱۱"],["محمدماها ن","غفاری","۲۰۳۰۰۴۹۷۳","۰۹۱۲۷۲۰۹۷۷۲"],["علی","فاتحی بیکانی","۷۵۵۰۰۳۹۰۴۶","۰۹۱۹۲۰۸۰۳۴۵"],["مهدیار","فرمانی","۲۰۲۹۶۵۹۹۶","۰۹۱۲۶۵۸۱۴۵۲"],["ابوالفضل","فمله گری","۷۵۵۰۰۳۳۴۸۱","۰۹۱۹۵۰۲۹۹۵۵"],["امیرعلی","کاظمی","۲۰۳۱۹۴۶۱۶","۰۹۱۹۷۹۹۲۸۵۰"],["سهیل","مجیدی","۷۵۵۰۰۴۴۳۲۳","۰۹۱۲۵۵۲۷۴۳۲"],["محمدطاها","محبی ملکی","۷۵۵۰۰۱۷۴۳۳","۰۹۳۷۸۴۱۴۴۵۷"],["رضا","محمدپورروشنی","۴۸۲۰۵۰۱۰۱","۰۹۳۶۸۱۴۲۳۸۵"],["امیرعباس","محمدی","۷۵۵۰۰۵۷۰۸۷","۰۹۱۳۷۹۷۶۸۰۱"],["محمد","مرادی","۴۱۱۵۶۰۷۴۳","۰۹۱۲۰۶۱۶۱۴۷"],["بنیامین","مرادی","۷۵۵۰۰۳۵۳۴۲","۰۹۱۹۲۴۸۲۵۹۶"],["ماهان","مرسل پور دوپیل","۷۵۵۰۰۴۹۹۵۵","۰۹۱۹۶۸۸۵۴۴۳"],["امیرعلی","مشکانی","۷۵۵۰۰۵۲۹۵۶","۰۹۳۸۴۹۷۶۷۲۲"],["محمدحسین","نصیرزاده","۷۵۵۰۰۵۵۱۸۱","۰۹۱۹۰۲۰۹۴۲۵"],["یاسین","نوبخش","۷۵۵۰۰۳۶۷۱۳","۰۹۱۲۲۳۹۴۲۳۶"],["امیرعلی","نوروز","۴۸۲۰۹۲۷۸۵","۰۹۱۲۸۳۶۲۵۴۷"],["امیرطاها","نیکوانرانی","۷۵۵۰۰۲۲۶۸۹","۰۹۱۲۷۷۱۲۳۹۶"],["یاسین","ولی پورترکمانی","۷۵۵۰۰۴۷۰۴۹","۰۹۱۹۲۵۵۸۵۱۴"],["محمد امین","یاری","۷۵۵۰۰۳۰۷۳۱","۰۹۱۹۲۷۷۰۵۴۰"],["سهر","یکتائی پگانه","۷۵۵۰۰۵۰۸۲۱","۰۹۱۸۲۱۳۸۲۷۳"],["امیرعلی","اسدی","۷۵۵۰۰۵۸۲۳۰","۰۹۱۹۴۰۷۱۵۶۰"]
+].map((x,i)=>({id:i+1,first:x[0],last:x[1],nid:x[2],phone:x[3]}));
+
+const subjects=["ریاضی","علوم","فارسی","نگارش","مطالعات اجتماعی","هدیه‌های آسمان","قرآن","ورزش"];
+let db=JSON.parse(localStorage.getItem("grade6DB")||'{"grades":[],"attendance":[],"tasks":[],"exams":[],"reminders":[],"taskMisses":[]}');
+db.exams = db.exams || [];
+db.tasks = db.tasks || [];
+db.reminders = db.reminders || [];
+db.taskMisses = db.taskMisses || [];
+db.behaviors = db.behaviors || [];
+db.groups = db.groups || [];
+db.classMonitor = db.classMonitor || null;
+db.sport = db.sport || {leaders:[],teams:[],teamCount:2,participants:[]};
+db.manualScores = db.manualScores || {};
+db.lessonPlanDone = db.lessonPlanDone || {};
+
+let currentStudent = null;
+
+function save(){localStorage.setItem("grade6DB",JSON.stringify(db))}
+
+function scoreValue(q){return {'نیاز به تلاش بیشتر':1,'نیاز به تلاش':1,'قابل‌قبول':2,'خوب':3,'خیلی خوب':4}[normalizeQuality(q)]||0}
+function qualityText(v){return v>=3.5?'خیلی خوب':v>=2.5?'خوب':v>=1.5?'قابل‌قبول':'نیاز به تلاش بیشتر'}
+let gradebookSubject = "ریاضی";
+function gradebookSubjectLabel(s){
+  return s === "هدیه‌های آسمان" ? "هدیه" : s;
+}
+function gradebookSubjectClass(s){
+  const map={"ریاضی":"math","علوم":"science","فارسی":"persian","نگارش":"writing","مطالعات اجتماعی":"social","هدیه‌های آسمان":"gift","قرآن":"quran","ورزش":"sport"};
+  return map[s]||"default";
+}
+function renderGradebook(subject){
+  const tabs=document.getElementById('gradebookTabs'), el=document.getElementById('gradebookArea');
+  if(!tabs||!el)return;
+  if(subject) gradebookSubject=subject;
+  if(!subjects.includes(gradebookSubject)) gradebookSubject=subjects[0];
+  const exams=(db.exams||[]).filter(e=>e.subject===gradebookSubject);
+  const title=document.getElementById('gradebookTitle');
+  if(title) title.textContent='دفتر نمرات '+gradebookSubjectLabel(gradebookSubject);
+  tabs.innerHTML=subjects.map(s=>`<button class="gradebook-tab ${s===gradebookSubject?'active':''} ${gradebookSubjectClass(s)}" onclick="renderGradebook('${s}')">${s}</button>`).join('');
+  const filled=exams.reduce((n,e)=>n+Object.keys(e.scores||{}).length,0);
+  const avgValues=[];
+  exams.forEach(e=>Object.values(e.scores||{}).forEach(v=>{const q=normalizeQuality(v);if(q)avgValues.push(scoreValue(q));}));
+  const avg=avgValues.length?avgValues.reduce((a,b)=>a+b,0)/avgValues.length:0;
+  const summary=document.getElementById('gradebookSummary');
+  if(summary) summary.innerHTML=`<div class="gb-stat"><b>${fa(exams.length)}</b><span>ارزشیابی ثبت‌شده</span></div><div class="gb-stat"><b>${fa(filled)}</b><span>نمره ثبت‌شده</span></div><div class="gb-stat"><b>${avgValues.length?qualityText(avg):'—'}</b><span>ارزیابی کلی درس</span></div>`;
+  if(!exams.length){
+    el.innerHTML=`<div class="gradebook-empty"><div class="gb-empty-icon">📚</div><h3>دفتر ${gradebookSubjectLabel(gradebookSubject)} آماده است</h3><p>هنوز ارزشیابی‌ای برای این درس ثبت نشده است.</p><button class="btn" onclick="openNewExamForSubject()">＋ اولین ارزشیابی ${gradebookSubjectLabel(gradebookSubject)}</button></div>`;
+    return;
+  }
+  const head=exams.map(e=>`<th><div>${e.type||'ارزشیابی'}</div><small>${e.date||''}</small></th>`).join('');
+  const rows=students.map((st,i)=>{
+    const vals=exams.map(e=>e.scores&&e.scores[st.id]).filter(Boolean);
+    const nums=vals.map(v=>scoreValue(v)).filter(v=>typeof v==='number' && !isNaN(v));
+    const a=nums.length?nums.reduce((x,y)=>x+y,0)/nums.length:0;
+    return `<tr><td class="gb-rownum">${fa(i+1)}</td><td class="gb-student"><b>${fullName(st)}</b></td>${exams.map(e=>{const q=normalizeQuality(e.scores&&e.scores[st.id]);return `<td><span class="gb-score ${q?('q-'+qualityClass(q)):'empty-score'}">${q||'—'}</span></td>`}).join('')}<td class="gb-average"><b>${nums.length?qualityText(a):'—'}</b></td></tr>`;
+  }).join('');
+  el.innerHTML=`<div class="gradebook-table-wrap"><table class="gradebook-table"><thead><tr><th style="width:55px">ردیف</th><th style="min-width:180px">دانش‌آموز</th>${head}<th style="width:125px">ارزیابی کلی</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="gradebook-note"><span>📌</span> این دفتر فقط ارزشیابی‌های درس <b>${gradebookSubjectLabel(gradebookSubject)}</b> را نشان می‌دهد. برای ثبت نمره، «ثبت ارزشیابی این درس» را بزنید.</div>`;
+}
+function qualityClass(q){
+  if(q==='خیلی خوب') return 'excellent';
+  if(q==='خوب') return 'good';
+  if(q==='قابل قبول') return 'ok';
+  if(q==='نیاز به تلاش') return 'needs';
+  return 'other';
+}
+function openNewExamForSubject(){
+  newExam();
+  setTimeout(()=>{
+    const sel=document.getElementById('neSubject');
+    if(sel){sel.value=gradebookSubject; sel.dispatchEvent(new Event('change'));}
+  },0);
+}
+
+// ===== محاسبه امتیاز دانش‌آموز =====
+function studentScore(sid){
+  const excellentCount = db.grades.filter(g => 
+    g.sid == sid && normalizeQuality(g.score) === "خیلی خوب"
+  ).length;
+  const behaviorCount = (db.behaviors || []).filter(b => b.sid == sid).length;
+  const manual = (db.manualScores || {})[sid] || 0;
+  return (excellentCount * 2) - behaviorCount + manual;
+}
+
+// ===== تغییر امتیاز دستی =====
+function changeStudentScore(sid, delta){
+  if(!findStudent(sid)) return;
+  db.manualScores = db.manualScores || {};
+  db.manualScores[sid] = (db.manualScores[sid] || 0) + delta;
+  save();
+  renderScoreboard();
+  updateDashboard();
+  const s = findStudent(sid);
+  const msg = delta > 0 ? `➕ ${delta} امتیاز به ${fullName(s)}` : `➖ ${Math.abs(delta)} امتیاز از ${fullName(s)}`;
+  toast(msg);
+}
+
+// ===== جدول امتیازات =====
+function renderScoreboard(){
+  const el = document.getElementById("scoreboardArea");
+  if(!el) return;
+  
+  const ranked = students.map(s => ({
+    student: s,
+    score: studentScore(s.id),
+    excellent: db.grades.filter(g => 
+      g.sid == s.id && normalizeQuality(g.score) === "خیلی خوب"
+    ).length,
+    behaviors: (db.behaviors || []).filter(b => b.sid == s.id).length,
+    manual: (db.manualScores || {})[s.id] || 0
+  })).sort((a, b) => b.score - a.score);
+  
+  if(!ranked.length){
+    el.innerHTML = '<div class="empty">هنوز امتیازی ثبت نشده است.</div>';
+    return;
+  }
+  
+  el.innerHTML = `<div style="overflow:auto">
+    <table class="scoreboard-table">
+      <thead>
+        <tr>
+          <th style="width:60px">رتبه</th>
+          <th>دانش‌آموز</th>
+          <th style="width:80px">خیلی خوب</th>
+          <th style="width:100px">انضباطی</th>
+          <th style="width:80px">دستی</th>
+          <th style="width:80px">امتیاز کل</th>
+          <th style="width:200px">دادن / کم کردن امتیاز</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${ranked.map((x, i) => {
+          const rank = i + 1;
+          const medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : fa(rank);
+          const rowClass = rank === 1 ? "top1" : rank === 2 ? "top2" : rank === 3 ? "top3" : "";
+          const scoreColor = x.score > 0 ? "#159a67" : x.score < 0 ? "#d64545" : "#6b7280";
+          const manualColor = x.manual > 0 ? "#159a67" : x.manual < 0 ? "#d64545" : "#6b7280";
+          const manualText = x.manual > 0 ? "+" + fa(x.manual) : fa(x.manual);
+          return `<tr class="${rowClass}">
+            <td style="font-size:18px;font-weight:900;text-align:center;cursor:pointer" onclick="openStudent(${x.student.id})">${medal}</td>
+            <td style="cursor:pointer" onclick="openStudent(${x.student.id})"><b>${fullName(x.student)}</b></td>
+            <td style="text-align:center"><span class="badge good">${fa(x.excellent)}</span></td>
+            <td style="text-align:center"><span class="badge bad">${fa(x.behaviors)}</span></td>
+            <td style="text-align:center"><b style="color:${manualColor}">${manualText}</b></td>
+            <td style="text-align:center"><b style="color:${scoreColor};font-size:18px">${fa(x.score)}</b></td>
+            <td>
+              <div class="score-btns wide">
+                <button class="score-btn minus" onclick="changeStudentScore(${x.student.id},-5)" title="کم کردن ۵ امتیاز">−۵</button>
+                <button class="score-btn minus" onclick="changeStudentScore(${x.student.id},-1)" title="کم کردن ۱ امتیاز">−۱</button>
+                <button class="score-btn plus" onclick="changeStudentScore(${x.student.id},1)" title="دادن ۱ امتیاز">+۱</button>
+                <button class="score-btn plus" onclick="changeStudentScore(${x.student.id},5)" title="دادن ۵ امتیاز">+۵</button>
+              </div>
+            </td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+// ===== رفتار و انضباط =====
+const POSITIVE_BEHAVIORS = ["نظم","مشارکت","مسئولیت‌پذیری","احترام","انضباط","کمک به دوستان"];
+
+function addBehavior(){
+  const old = document.getElementById("behaviorOverlay");
+  if(old) old.remove();
+  const ov = document.createElement("div");
+  ov.id = "behaviorOverlay";
+  ov.className = "behavior-overlay";
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `
+    <div class="behavior-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px">
+        <h2 style="margin:0">🧭 ثبت مورد رفتاری جدید</h2>
+        <button type="button" class="btn secondary" onclick="document.getElementById('behaviorOverlay').remove()">✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div>
+          <label style="font-size:12px;color:var(--muted);font-weight:700">نوع مورد</label>
+          <select id="bhType" class="select" style="width:100%;margin-top:5px">
+            <optgroup label="✅ موارد مثبت">
+              <option value="نظم">نظم</option>
+              <option value="مشارکت">مشارکت</option>
+              <option value="مسئولیت‌پذیری">مسئولیت‌پذیری</option>
+              <option value="احترام">احترام</option>
+              <option value="انضباط">انضباط</option>
+              <option value="کمک به دوستان">کمک به دوستان</option>
+            </optgroup>
+            <optgroup label="❌ موارد منفی">
+              <option value="بی‌نظمی">بی‌نظمی</option>
+              <option value="عدم مشارکت">عدم مشارکت</option>
+              <option value="بی‌احترامی">بی‌احترامی</option>
+              <option value="شلوغی کلاس">شلوغی کلاس</option>
+              <option value="صحبت در کلاس">صحبت در کلاس</option>
+              <option value="بی‌توجهی">بی‌توجهی</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);font-weight:700">تاریخ</label>
+          <input id="bhDate" class="input" style="width:100%;margin-top:5px" value="${todayKey()}">
+        </div>
+      </div>
+      <label style="font-size:12px;color:var(--muted);font-weight:700">توضیحات (اختیاری)</label>
+      <input id="bhNote" class="input" style="width:100%;margin:5px 0 14px" placeholder="مثلاً: در زنگ ریاضی...">
+      
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="font-weight:800">انتخاب دانش‌آموزان <span class="muted">(می‌توانی چند نفر را انتخاب کنی)</span></div>
+        <div style="display:flex;gap:6px">
+          <button type="button" class="btn secondary" style="font-size:11px;padding:5px 10px" onclick="bhSelectAll(true)">✓ همه</button>
+          <button type="button" class="btn secondary" style="font-size:11px;padding:5px 10px" onclick="bhSelectAll(false)">✗ هیچ‌کدام</button>
+        </div>
+      </div>
+      <input id="bhSearch" class="input" style="width:100%;margin-bottom:8px" placeholder="🔍 جستجوی نام..." oninput="filterBehaviorStudents()">
+      <div class="bh-student-list" id="bhStudents">
+        ${students.map(s=>`<label><input type="checkbox" class="bh-check" value="${s.id}"><span>${fullName(s)}</span></label>`).join("")}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
+        <button type="button" class="btn" onclick="saveBehavior()">✓ ثبت موارد</button>
+        <button type="button" class="btn secondary" onclick="document.getElementById('behaviorOverlay').remove()">انصراف</button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+}
+
+function bhSelectAll(state){
+  document.querySelectorAll("#bhStudents label").forEach(l=>{
+    if(l.style.display === "none") return;
+    const chk = l.querySelector(".bh-check");
+    chk.checked = state;
+    l.classList.toggle("selected", state);
+  });
+}
+
+function filterBehaviorStudents(){
+  const q = (document.getElementById("bhSearch")?.value || "").trim();
+  document.querySelectorAll("#bhStudents label").forEach(l=>{
+    const txt = l.querySelector("span").textContent;
+    l.style.display = txt.includes(q) ? "flex" : "none";
+  });
+}
+
+function saveBehavior(){
+  const type = document.getElementById("bhType").value;
+  const date = document.getElementById("bhDate").value.trim();
+  const note = document.getElementById("bhNote").value.trim();
+  const ids = [...document.querySelectorAll(".bh-check:checked")].map(x=>Number(x.value)).filter(id=>findStudent(id));
+  if(!ids.length){ toast("حداقل یک دانش‌آموز انتخاب کن"); return; }
+  if(!date){ toast("تاریخ را وارد کن"); return; }
+  ids.forEach(sid=>{
+    db.behaviors.push({ id:"b"+Date.now()+"-"+sid, sid, type, note, date });
+  });
+  save();
+  document.getElementById("behaviorOverlay")?.remove();
+  renderBehavior();
+  updateDashboard();
+  toast(`${fa(ids.length)} مورد رفتاری ثبت شد`);
+}
+
+function renderBehavior(){
+  const el=document.getElementById("behaviorArea");
+  if(!el)return;
+  const rows=[...db.behaviors].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  
+  let html = `<div class="toolbar" style="margin-bottom:12px">
+    <input id="bhFilterSearch" class="input search" placeholder="🔍 جستجوی نام دانش‌آموز..." oninput="renderBehavior()">
+    <select id="bhFilterType" class="select" onchange="renderBehavior()">
+      <option value="">همه انواع</option>
+      ${[...new Set(rows.map(r=>r.type))].map(t=>`<option value="${t}">${t}</option>`).join("")}
+    </select>
+    <span class="badge warn" style="align-self:center">${fa(rows.length)} مورد ثبت‌شده</span>
+  </div>`;
+  
+  const q = (document.getElementById("bhFilterSearch")?.value || "").trim();
+  const ft = document.getElementById("bhFilterType")?.value || "";
+  let filtered = rows;
+  if(q) filtered = filtered.filter(r=>{ const st=findStudent(r.sid); return st && fullName(st).includes(q); });
+  if(ft) filtered = filtered.filter(r=>r.type===ft);
+  
+  if(!filtered.length){
+    html += '<div class="empty">موردی یافت نشد.</div>';
+  } else {
+    html += `<div style="overflow:auto"><table>
+      <thead><tr><th>تاریخ</th><th>دانش‌آموز</th><th>نوع</th><th>توضیحات</th><th style="width:70px">حذف</th></tr></thead>
+      <tbody>
+        ${filtered.map(r=>{
+          const st=findStudent(r.sid);
+          const isPos = POSITIVE_BEHAVIORS.includes(r.type);
+          return `<tr>
+            <td>${r.date}</td>
+            <td><b>${st?fullName(st):"—"}</b></td>
+            <td><span class="badge ${isPos?'good':'bad'}">${isPos?'✓ ':'✗ '}${r.type}</span></td>
+            <td>${r.note||"—"}</td>
+            <td><button class="btn secondary" style="font-size:11px;padding:4px 8px" onclick="deleteBehavior('${r.id}')">🗑</button></td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table></div>`;
+  }
+  el.innerHTML = html;
+}
+
+function deleteBehavior(id){
+  if(!confirm("این مورد حذف شود؟")) return;
+  db.behaviors = db.behaviors.filter(b=>b.id!==id);
+  save();
+  renderBehavior();
+  updateDashboard();
+  toast("مورد حذف شد");
+}
+
+function renderMonthly(){const el=document.getElementById('monthlyArea');if(!el)return;const month=prompt('ماه گزارش را وارد کنید (مثلاً ۱۴۰۵/۰۷):',todayKey().slice(0,7));if(!month)return;const rows=students.map((s,i)=>{const g=db.grades.filter(x=>x.sid==s.id&&String(x.date).startsWith(month));const a=db.attendance.filter(x=>x.sid==s.id&&String(x.date).startsWith(month)).length;const b=db.behaviors.filter(x=>x.sid==s.id&&String(x.date).startsWith(month)).length;const v=g.map(x=>scoreValue(x.score)).filter(Boolean);return {s,a,b,q:v.length?qualityText(v.reduce((x,y)=>x+y,0)/v.length):'—'}});el.innerHTML='<div class="profile" style="margin-bottom:14px"><div class="mini"><b>ماه</b>'+month+'</div><div class="mini"><b>دانش‌آموزان</b>'+fa(students.length)+'</div></div><div style="overflow:auto"><table><thead><tr><th>ردیف</th><th>دانش‌آموز</th><th>ارزیابی نمرات</th><th>غیبت</th><th>موارد رفتاری</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td>'+fa(i+1)+'</td><td>'+fullName(r.s)+'</td><td>'+r.q+'</td><td>'+fa(r.a)+'</td><td>'+fa(r.b)+'</td></tr>').join('')+'</tbody></table></div>'}
+
+// ===== زنگ ورزش با انتخاب شرکت‌کنندگان =====
+function renderSport(){
+ const el=document.getElementById('sportArea');if(!el)return;
+ const leaders=(db.sport.leaders||[]).map(findStudent).filter(Boolean),teams=db.sport.teams||[];
+ 
+ if(!leaders.length){
+  el.innerHTML=`<div class="sport-pick">
+    <h3>۱) انتخاب سرگروه‌ها</h3>
+    <p>بچه‌هایی را که بازی‌شان خوب است انتخاب کن.</p>
+    <div class="sport-list">${students.map(st=>`<label><input type="checkbox" class="sport-leader-check" value="${st.id}"><span>${fullName(st)}</span></label>`).join('')}</div>
+    <button type="button" class="btn" id="sportConfirmBtn">✓ ثبت سرگروه‌ها</button>
+  </div>`;
+  document.getElementById('sportConfirmBtn').addEventListener('click', confirmSportLeaders);
+  return;
+ }
+ 
+ if(!db.sport.participants || db.sport.participants.length === 0){
+   const leaderSet = new Set(leaders.map(s=>s.id));
+   db.sport.participants = students.filter(s=>!leaderSet.has(s.id)).map(s=>s.id);
+   save();
+ }
+ 
+ const participants = db.sport.participants || [];
+ 
+ const cols=leaders.length;
+ let body='';
+ if(teams.length){
+  const memberLists=teams.map(t=>t.members.filter(id=>id!==t.leader));
+  const max=Math.max(0,...memberLists.map(a=>a.length));
+  body=Array.from({length:max},(_,r)=>`<tr>${memberLists.map(list=>`<td>${list[r]?fullName(findStudent(list[r])):''}</td>`).join('')}</tr>`).join('');
+ } else {
+   body=`<tr><td colspan="${cols}" class="waiting">سرگروه‌ها ثبت شدند؛ حالا شرکت‌کنندگان را انتخاب کن و قرعه‌کشی بزن.</td></tr>`;
+ }
+ 
+ el.innerHTML=`
+   <div class="sport-pick" style="margin-bottom:14px;background:#fbfcfe">
+     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+       <div>
+         <h3 style="margin:0">۲) انتخاب شرکت‌کنندگان در قرعه‌کشی</h3>
+         <p class="muted" style="margin:5px 0 0">تیک هر کسی را که <b>نمی‌خواهد</b> یا <b>نمی‌تواند</b> ورزش کند بردار.</p>
+       </div>
+       <div style="display:flex;gap:6px">
+         <button type="button" class="btn secondary" style="font-size:12px;padding:6px 12px" onclick="sportSelectAll(true)">✓ همه</button>
+         <button type="button" class="btn secondary" style="font-size:12px;padding:6px 12px" onclick="sportSelectAll(false)">✗ هیچ‌کدام</button>
+       </div>
+     </div>
+     <input id="sportSearchInput" class="input" style="width:100%;margin-bottom:8px" placeholder="🔍 جستجوی نام..." oninput="filterSportParticipants()">
+     <div class="sport-list" id="sportParticipantsList" style="max-height:280px">
+       ${students.filter(s=>!leaders.some(l=>l.id===s.id)).map(s=>`
+         <label class="${participants.includes(s.id)?'selected':''}" style="${participants.includes(s.id)?'background:#eef0ff;border-color:#5b5ce2':''}">
+           <input type="checkbox" class="sport-participant-check" value="${s.id}" ${participants.includes(s.id)?'checked':''} onchange="toggleSportParticipant(${s.id},this.checked)">
+           <span>${fullName(s)}</span>
+         </label>
+       `).join('')}
+     </div>
+     <div class="muted" style="margin-top:8px">تعداد شرکت‌کنندگان: <b id="sportPartCount">${fa(participants.length)}</b> نفر</div>
+   </div>
+   
+   <div class="sport-table-wrap">
+     <table class="sport-table">
+       <thead><tr>${leaders.map((s,i)=>`<th>سرگروه ${fa(i+1)}<br><strong>${fullName(s)}</strong></th>`).join('')}</tr></thead>
+       <tbody>${body}</tbody>
+     </table>
+   </div>
+   <div class="sport-actions">
+     <button type="button" class="btn" id="sportDrawBtn">🎲 قرعه‌کشی اعضای تیم</button>
+     <button type="button" class="btn secondary" id="sportChangeBtn">تغییر سرگروه‌ها</button>
+     <button type="button" class="btn secondary" id="sportResetBtn">پاک کردن</button>
+   </div>`;
+ 
+ document.getElementById('sportDrawBtn').addEventListener('click', drawSportTeams);
+ document.getElementById('sportChangeBtn').addEventListener('click', changeSportLeaders);
+ document.getElementById('sportResetBtn').addEventListener('click', resetSport);
+}
+
+function toggleSportParticipant(id, checked){
+  db.sport.participants = db.sport.participants || [];
+  if(checked){
+    if(!db.sport.participants.includes(id)) db.sport.participants.push(id);
+  } else {
+    db.sport.participants = db.sport.participants.filter(x=>x!==id);
+  }
+  save();
+  const countEl = document.getElementById('sportPartCount');
+  if(countEl) countEl.textContent = fa(db.sport.participants.length);
+  document.querySelectorAll('.sport-participant-check').forEach(chk=>{
+    const lbl = chk.closest('label');
+    if(lbl){
+      if(chk.checked){ lbl.style.background='#eef0ff'; lbl.style.borderColor='#5b5ce2'; }
+      else { lbl.style.background=''; lbl.style.borderColor=''; }
+    }
+  });
+}
+
+function sportSelectAll(state){
+  const leaders = (db.sport.leaders||[]).map(findStudent).filter(Boolean);
+  db.sport.participants = state 
+    ? students.filter(s=>!leaders.some(l=>l.id===s.id)).map(s=>s.id)
+    : [];
+  save();
+  renderSport();
+}
+
+function filterSportParticipants(){
+  const q = (document.getElementById('sportSearchInput')?.value || '').trim();
+  document.querySelectorAll('#sportParticipantsList label').forEach(l=>{
+    const txt = l.querySelector('span').textContent;
+    l.style.display = txt.includes(q) ? 'flex' : 'none';
+  });
+}
+
+function changeSportLeaders(){
+  db.sport.leaders=[];
+  db.sport.teams=[];
+  db.sport.participants=[];
+  save();
+  renderSport();
+}
+
+function confirmSportLeaders(){
+ const ids=[...document.querySelectorAll('.sport-leader-check:checked')].map(x=>Number(x.value)).filter(id=>findStudent(id));
+ if(ids.length<2){toast('حداقل ۲ سرگروه انتخاب کن');return}
+ db.sport.leaders=ids;
+ db.sport.teams=[];
+ db.sport.participants=[];
+ save();
+ renderSport();
+ toast("سرگروه‌ها ثبت شدند");
+}
+
+function drawSportTeams(){
+ const leaders=(db.sport.leaders||[]).filter(id=>findStudent(id));
+ if(leaders.length<2){toast('ابتدا حداقل ۲ سرگروه انتخاب کن');return}
+ 
+ const leaderSet=new Set(leaders);
+ const participants = db.sport.participants || [];
+ 
+ const others = students
+   .filter(s=>!leaderSet.has(s.id) && participants.includes(s.id))
+   .map(s=>s.id);
+ 
+ if(!others.length){
+   toast('هیچ شرکت‌کننده‌ای برای قرعه‌کشی وجود ندارد');
+   return;
+ }
+ 
+ for(let i=others.length-1;i>0;i--){
+   const j=Math.floor(Math.random()*(i+1));
+   [others[i],others[j]]=[others[j],others[i]];
+ }
+ 
+ const teams=leaders.map((id,i)=>({name:`تیم ${fa(i+1)}`,leader:id,members:[id]}));
+ others.forEach((id,i)=>teams[i%teams.length].members.push(id));
+ db.sport.teams=teams;
+ save();
+ renderSport();
+ toast('تیم‌ها با قرعه‌کشی تصادفی ساخته شدند 🎲');
+}
+
+function resetSport(){
+  if(!confirm('اطلاعات زنگ ورزش پاک شود؟'))return;
+  db.sport={leaders:[],teams:[],teamCount:2,participants:[]};
+  save();
+  renderSport();
+}
+
+function renderGroups(){
+ const el=document.getElementById('groupsArea');if(!el)return;
+ if(!db.groups)db.groups=[];
+ if(!db.groups.length){el.innerHTML='<div class="empty">هنوز گروهی ساخته نشده است.</div>';return}
+ const sorted=db.groups.map((g,i)=>({g,i,points:Number(g.points)||0})).sort((a,b)=>b.points-a.points);
+ el.innerHTML=`<div class="group-list">${sorted.map((x,rank)=>{
+   const g=x.g, i=x.i, leader=findStudent(g.leader), members=(g.members||[]).map(findStudent).filter(Boolean);
+   return `<div class="group-card" onclick="openGroupPanel(${i})">
+     <div class="group-head"><div><span class="group-rank">${fa(rank+1)}.</span> <b style="font-size:20px">${g.name}</b></div><div class="group-score">⭐ ${fa(x.points)}</div></div>
+     <div style="margin-top:9px;font-size:14px"><b>سرگروه:</b> ${leader?fullName(leader):'—'} &nbsp; | &nbsp; <b>اعضا:</b> ${fa(members.length)}</div>
+     <div style="margin-top:7px;color:#667085;font-size:13px">برای مشاهده اعضا و ثبت امتیاز روی گروه بزن</div>
+   </div>`
+ }).join('')}</div>`;
+}
+function openGroupPanel(i){
+ const g=db.groups[i];if(!g)return;
+ g.points=Number(g.points)||0;
+ const leader=findStudent(g.leader), members=(g.members||[]).map(findStudent).filter(Boolean);
+ const old=document.getElementById('groupPanelOverlay');if(old)old.remove();
+ const ov=document.createElement('div');ov.id='groupPanelOverlay';ov.className='group-panel-overlay';
+ ov.onclick=e=>{if(e.target===ov)closeGroupPanel()};
+ ov.innerHTML=`<div class="group-panel">
+   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>👥 ${g.name}</h2><button class="btn secondary" onclick="closeGroupPanel()">✕ بستن</button></div>
+   <div class="score-box"><span>امتیاز گروه</span><span class="score-number" id="groupPanelScore">${fa(g.points)}</span></div>
+   <div class="group-score-form">
+     <input id="groupPointsInput" type="number" step="1" placeholder="مثلاً ۵" inputmode="numeric">
+     <button type="button" class="btn" onclick="setGroupPoints(${i});return false;">ثبت امتیاز</button>
+     <button type="button" class="btn secondary" onclick="changeGroupPoints(${i},1);return false;">+۱</button>
+     <button type="button" class="btn secondary" onclick="changeGroupPoints(${i},5);return false;">+۵</button>
+     <button type="button" class="btn secondary" onclick="changeGroupPoints(${i},10);return false;">+۱۰</button>
+     <button type="button" class="btn secondary" onclick="changeGroupPoints(${i},-1);return false;">−۱</button>
+     <button type="button" class="btn secondary" onclick="changeGroupPoints(${i},-5);return false;">−۵</button>
+   </div>
+   <div style="margin-top:14px"><b>سرگروه:</b> ${leader?fullName(leader):'—'}</div>
+   <div class="group-members"><b>اعضای گروه:</b>${members.length?members.map(m=>`<div class="group-member">${fullName(m)}</div>`).join(''):'<div class="empty">عضوی ثبت نشده است.</div>'}</div>
+   <div style="margin-top:16px"><button type="button" class="btn secondary" onclick="deleteGroup(${i});closeGroupPanel()">🗑 حذف گروه</button></div>
+ </div>`;
+ document.body.appendChild(ov);
+}
+function closeGroupPanel(){const x=document.getElementById('groupPanelOverlay');if(x)x.remove()}
+function setGroupPoints(i){
+ const g=db.groups[i];if(!g)return;
+ const input=document.getElementById('groupPointsInput');if(!input)return;
+ const n=Number(input.value);if(!Number.isFinite(n)){toast('یک امتیاز معتبر وارد کن');return}
+ g.points=n;save();
+ const sc=document.getElementById('groupPanelScore');if(sc)sc.textContent=fa(g.points);
+ renderGroups();
+ toast('امتیاز گروه ثبت شد');
+}
+function changeGroupPoints(i,delta){
+ const g=db.groups[i];if(!g)return;
+ g.points=(Number(g.points)||0)+delta;
+ save();
+ const sc=document.getElementById('groupPanelScore');if(sc)sc.textContent=fa(g.points);
+ renderGroups();
+}
+function addGroup(){
+ const old=document.getElementById('createGroupOverlay');if(old)old.remove();
+ const ov=document.createElement('div');ov.id='createGroupOverlay';ov.className='group-panel-overlay';
+ ov.innerHTML=`<div class="group-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2>➕ ساخت گروه جدید</h2><button type="button" class="btn secondary" onclick="document.getElementById('createGroupOverlay').remove()">✕</button></div>
+  <input id="newGroupName" placeholder="نام گروه" style="width:100%;box-sizing:border-box;font-size:18px;padding:12px;border:1px solid var(--line);border-radius:10px;margin:8px 0 14px">
+  <div style="font-weight:800;margin-bottom:8px">۱) اعضای گروه را انتخاب کن</div>
+  <div class="sport-list" id="newGroupMembers">${students.map(st=>`<label><input type="checkbox" class="new-group-member" value="${st.id}"><span>${fullName(st)}</span></label>`).join('')}</div>
+  <div style="font-weight:800;margin:12px 0 8px">۲) یکی از اعضا را به‌عنوان سرگروه انتخاب کن</div>
+  <select id="newGroupLeader" style="width:100%;font-size:18px;padding:11px;border:1px solid var(--line);border-radius:10px"><option value="">انتخاب سرگروه</option></select>
+  <div style="display:flex;gap:8px;margin-top:16px"><button type="button" class="btn" onclick="saveNewGroup();return false;">✓ ثبت گروه</button><button type="button" class="btn secondary" onclick="document.getElementById('createGroupOverlay').remove()">انصراف</button></div>
+ </div>`;
+ document.body.appendChild(ov);
+ document.querySelectorAll('.new-group-member').forEach(x=>x.addEventListener('change',updateGroupLeaderOptions));
+}
+function updateGroupLeaderOptions(){const sel=document.getElementById('newGroupLeader');if(!sel)return;const ids=[...document.querySelectorAll('.new-group-member:checked')].map(x=>Number(x.value));sel.innerHTML='<option value="">انتخاب سرگروه</option>'+ids.map(id=>`<option value="${id}">${fullName(findStudent(id))}</option>`).join('')}
+function saveNewGroup(){
+ const name=(document.getElementById('newGroupName')?.value||'').trim();
+ const ids=[...document.querySelectorAll('.new-group-member:checked')].map(x=>Number(x.value)).filter(id=>findStudent(id));
+ const leader=Number(document.getElementById('newGroupLeader')?.value||0);
+ if(!name){toast('نام گروه را وارد کن');return}
+ if(!ids.length){toast('حداقل یک عضو انتخاب کن');return}
+ if(!leader||!ids.includes(leader)){toast('ابتدا سرگروه را انتخاب کن');return}
+ if(!db.groups)db.groups=[];
+ db.groups.push({id:'g'+Date.now(),name,members:ids,leader,points:0});
+ save();
+ document.getElementById('createGroupOverlay')?.remove();
+ renderGroups();toast('گروه با موفقیت ثبت شد');
+}
+function deleteGroup(i){if(!confirm('این گروه حذف شود؟'))return;db.groups.splice(i,1);save();renderGroups();}
+
+// ===== مبصر کلاس =====
+function setClassMonitor(){
+  const old = document.getElementById("monitorOverlay");
+  if(old) old.remove();
+  const ov = document.createElement("div");
+  ov.id = "monitorOverlay";
+  ov.className = "behavior-overlay";
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `
+    <div class="behavior-panel" style="width:min(640px,100%)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px">
+        <h2 style="margin:0">⭐ انتخاب مبصر کلاس</h2>
+        <button type="button" class="btn secondary" onclick="document.getElementById('monitorOverlay').remove()">✕</button>
+      </div>
+      <p class="muted" style="margin-top:-6px;margin-bottom:12px">روی نام دانش‌آموز مورد نظر کلیک کن تا مبصر بشه.</p>
+      <input id="monitorSearch" class="input" style="width:100%;margin-bottom:10px" placeholder="🔍 جستجوی نام..." oninput="filterMonitorStudents()">
+      <div class="bh-student-list" id="monitorStudents" style="max-height:380px">
+        ${students.map(s=>`
+          <label class="monitor-item ${db.classMonitor===s.id?'selected':''}" onclick="selectMonitor(${s.id})">
+            <input type="radio" name="monitorPick" value="${s.id}" ${db.classMonitor===s.id?'checked':''}>
+            <span>${fullName(s)}</span>
+            ${db.classMonitor===s.id?'<span class="badge good" style="margin-right:auto">⭐ فعلی</span>':''}
+          </label>
+        `).join("")}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:16px;justify-content:space-between">
+        <button type="button" class="btn danger" onclick="clearMonitor()">🗑 حذف مبصر</button>
+        <button type="button" class="btn secondary" onclick="document.getElementById('monitorOverlay').remove()">بستن</button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+}
+
+function filterMonitorStudents(){
+  const q = (document.getElementById("monitorSearch")?.value || "").trim();
+  document.querySelectorAll("#monitorStudents .monitor-item").forEach(l=>{
+    const txt = l.querySelector("span").textContent;
+    l.style.display = txt.includes(q) ? "flex" : "none";
+  });
+}
+
+function selectMonitor(id){
+  if(!findStudent(id)) return;
+  db.classMonitor = id;
+  save();
+  renderMonitor();
+  document.getElementById("monitorOverlay")?.remove();
+  toast("⭐ " + fullName(findStudent(id)) + " به‌عنوان مبصر انتخاب شد");
+}
+
+function clearMonitor(){
+  if(!confirm("مبصر کلاس حذف شود؟")) return;
+  db.classMonitor = null;
+  save();
+  renderMonitor();
+  document.getElementById("monitorOverlay")?.remove();
+  toast("مبصر کلاس حذف شد");
+}
+
+function renderMonitor(){
+  const el = document.getElementById("monitorArea");
+  if(!el) return;
+  const s = findStudent(db.classMonitor);
+  if(!s){
+    el.innerHTML = `
+      <div class="empty" style="padding:25px">
+        هنوز مبصر کلاس تعیین نشده است.<br>
+        <button class="btn" style="margin-top:12px" onclick="setClassMonitor()">⭐ انتخاب مبصر</button>
+      </div>`;
+    return;
+  }
+  const score = studentScore(s.id);
+  el.innerHTML = `
+    <div style="text-align:center;padding:16px 0">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fff4e6,#ffe9cc);color:#d98a16;display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 12px;border:3px solid #f0d29a">⭐</div>
+      <div style="font-weight:800;font-size:18px">${fullName(s)}</div>
+      <div class="muted" style="margin-top:6px">مبصر کلاس ششم</div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <span class="badge good">⭐ ${fa(score)} امتیاز</span>
+        <span class="badge warn">ردیف ${fa(s.id)}</span>
+      </div>
+      <button class="btn secondary" style="margin-top:14px" onclick="setClassMonitor()">تغییر مبصر</button>
+    </div>`;
+}
+
+function fullName(s){return s.first+" "+s.last}
+function findStudent(id){return students.find(s=>s.id==id)}
+function findStudentByNid(nid){
+  const cleaned = String(nid).replace(/[۰-۹]/g, d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\s/g,"");
+  return students.find(s=>String(s.nid).replace(/[۰-۹]/g, d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\s/g,"") === cleaned);
+}
+const qualityLevels=["خیلی خوب","خوب","قابل‌قبول","نیاز به تلاش"];
+const qualityValue={"خیلی خوب":4,"خوب":3,"قابل‌قبول":2,"نیاز به تلاش":1};
+function normalizeQuality(v){
+  if(v==null||v==="") return "";
+  if(qualityLevels.includes(String(v))) return String(v);
+  const n=Number(v);
+  if(!isNaN(n)) return n>=18?"خیلی خوب":n>=15?"خوب":n>=12?"قابل‌قبول":"نیاز به تلاش";
+  return String(v);
+}
+function avg(id,subject){
+  const a=db.grades.filter(g=>g.sid==id&&(!subject||g.subject==subject)).map(g=>normalizeQuality(g.score)).filter(Boolean);
+  if(!a.length)return null;
+  const counts={};a.forEach(x=>counts[x]=(counts[x]||0)+1);
+  return qualityLevels.slice().sort((x,y)=>(counts[y]||0)-(counts[x]||0) || qualityValue[y]-qualityValue[x])[0];
+}
+function classAvg(subject){
+  const a=db.grades.filter(g=>!subject||g.subject==subject).map(g=>normalizeQuality(g.score)).filter(Boolean);
+  if(!a.length)return null;
+  const counts={};a.forEach(x=>counts[x]=(counts[x]||0)+1);
+  return qualityLevels.slice().sort((x,y)=>(counts[y]||0)-(counts[x]||0) || qualityValue[y]-qualityValue[x])[0];
+}
+function fa(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
+function fmt(n){return n==null?"—":normalizeQuality(n)}
+function absenceCount(sid){
+  return db.attendance.filter(a=>a.sid==sid && a.status!=="موجه").length;
+}
+function getFrequentAbsentees(){
+  return students.map(s=>({student:s, count:absenceCount(s.id)}))
+    .filter(x=>x.count > 1)
+    .sort((a,b)=>b.count-a.count);
+}
+function taskMissCount(sid){
+  return db.taskMisses.filter(m=>m.sid==sid).length;
+}
+function getFrequentTaskMissers(){
+  return students.map(s=>({student:s, count:taskMissCount(s.id)}))
+    .filter(x=>x.count > 1)
+    .sort((a,b)=>b.count-a.count);
+}
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page==id));
+  let t={dashboard:"داشبورد کلاس",students:"دانش‌آموزان",grades:"ثبت نمرات",attendance:"حضور و غیاب",tasks:"تکالیف",analysis:"تحلیل کلاس",report:"کارنامه",backup:"پشتیبان و تنظیمات",behavior:"رفتار و انضباط",gradebook:"دفتر نمرات",monthly:"گزارش ماهانه"};
+  document.getElementById("pageTitle").textContent=t[id];
+  if(id=="students")renderStudents();
+  if(id=="grades")renderGradeRows();
+  if(id=="attendance")renderAttendanceDates();
+  if(id=="tasks"){renderTasks();renderTaskOffenders();}
+  if(id=="analysis")renderAnalysis();
+  if(id=="report"){renderReportSelect();renderReportDates();}
+  if(id=="dashboard"){renderReminders();renderScoreboard();renderSport();}
+  if(id=="behavior")renderBehavior();
+  if(id=="gradebook")renderGradebook();
+}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+
+function updateDashboard(){
+ document.getElementById("sCount").textContent=fa(students.length);
+ document.getElementById("sGrades").textContent=fa(db.grades.length);
+ let all=classAvg();document.getElementById("sAvg").textContent=fmt(all);
+ let risk=students.filter(s=>avg(s.id)==="نیاز به تلاش").length;document.getElementById("sRisk").textContent=fa(risk);
+ let rg=db.grades.slice(-8).reverse();
+ document.getElementById("recentGrades").innerHTML=rg.length?'<table><tr><th>دانش‌آموز</th><th>درس</th><th>ارزیابی</th></tr>'+rg.map(g=>`<tr><td>${fullName(findStudent(g.sid))}</td><td>${g.subject}</td><td><b>${normalizeQuality(g.score)}</b></td></tr>`).join("")+'</table>':'<div class="empty">هنوز نمره‌ای ثبت نشده است.</div>';
+ document.getElementById("subjectStats").innerHTML=subjects.map(s=>{let a=classAvg(s);let w=a?qualityValue[a]*25:0;return `<div style="margin:13px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>${s}</span><b>${fmt(a)}</b></div><div class="bar"><i style="width:${w}%"></i></div></div>`}).join("");
+ 
+ const frequent = getFrequentAbsentees();
+ const frequentMiss = getFrequentTaskMissers();
+ const wrap = document.getElementById("alertBoxWrap");
+ let html = '';
+ if(frequent.length){
+   html += `
+     <div class="alert-box">
+       <div class="alert-title">⚠️ هشدار غیبت مکرر — بیش از یک روز غیبت غیرموجه</div>
+       ${frequent.map(x=>`<div class="alert-item" onclick="openStudent(${x.student.id})">
+         <div><b>${fullName(x.student)}</b></div>
+         <div><span class="alert-badge">${fa(x.count)} روز غیبت</span></div>
+       </div>`).join("")}
+     </div>`;
+ }
+ if(frequentMiss.length){
+   html += `
+     <div class="alert-box" style="background:#fdeaea;border-color:#f0b8b8">
+       <div class="alert-title" style="color:#b83a3a">📚 هشدار تکلیف نیاوردن مکرر — بیش از یک بار</div>
+       ${frequentMiss.map(x=>`<div class="alert-item" onclick="openStudent(${x.student.id})" style="border-bottom-color:#f0b8b8">
+         <div><b>${fullName(x.student)}</b></div>
+         <div><span class="alert-badge">${fa(x.count)} بار</span></div>
+       </div>`).join("")}
+     </div>`;
+ }
+ 
+ const today = todayKey();
+ const todayAbs = db.attendance.filter(a=>a.date===today);
+ if(todayAbs.length){
+   html += `
+     <div class="card" style="margin-top:16px;border:2px solid #5b5ce2">
+       <div class="section-title">
+         <div><h2>📋 غایبین امروز (${today})</h2><span class="muted">${fa(todayAbs.length)} دانش‌آموز غایب</span></div>
+         <button class="btn secondary" onclick="showPage('attendance')">مدیریت</button>
+       </div>
+       <div style="overflow:auto">
+         <table>
+           <thead><tr><th>ردیف</th><th>دانش‌آموز</th><th>وضعیت</th><th>توضیحات</th></tr></thead>
+           <tbody>
+             ${todayAbs.map((a,i)=>{
+               const s = findStudent(a.sid);
+               return `<tr>
+                 <td>${fa(i+1)}</td>
+                 <td><b>${s?fullName(s):"—"}</b></td>
+                 <td>
+                   <select class="select" style="padding:6px 8px;font-size:12px" onchange="updateAbsenceByDate('${today}',${a.sid},'status',this.value)">
+                     <option value="موجه" ${a.status==="موجه"?"selected":""}>✅ موجه</option>
+                     <option value="غیرموجه" ${a.status!=="موجه"?"selected":""}>❌ غیرموجه</option>
+                   </select>
+                 </td>
+                 <td>
+                   <input class="input" style="padding:6px 8px;font-size:12px;width:100%" value="${(a.note||"").replace(/"/g,"&quot;")}" placeholder="توضیحات..." onchange="updateAbsenceByDate('${today}',${a.sid},'note',this.value)">
+                 </td>
+               </tr>`;
+             }).join("")}
+           </tbody>
+         </table>
+       </div>
+     </div>`;
+ }
+ wrap.innerHTML = html;
+ 
+ renderScoreboard();
+ renderMonitor();
+ renderSport();
+}
+
+// ===== Reminders =====
+function addReminder(){
+  const old = document.getElementById("reminderOverlay");
+  if(old) old.remove();
+  const ov = document.createElement("div");
+  ov.id = "reminderOverlay";
+  ov.className = "behavior-overlay";
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `
+    <div class="behavior-panel" style="width:min(620px,100%)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px">
+        <h2 style="margin:0">⏰ افزودن یادآوری جدید</h2>
+        <button type="button" class="btn secondary" onclick="document.getElementById('reminderOverlay').remove()">✕</button>
+      </div>
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📌 عنوان یادآوری</label>
+      <input id="rmTitle" class="input" style="width:100%;margin:5px 0 12px;font-size:15px" placeholder="مثلاً: امتحان ریاضی فصل ۳">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div>
+          <label style="font-size:12px;color:var(--muted);font-weight:700">🏷 نوع</label>
+          <select id="rmType" class="select" style="width:100%;margin-top:5px;font-size:15px">
+            <option value="امتحان">📝 امتحان</option>
+            <option value="تکلیف">📚 تکلیف</option>
+            <option value="رویداد">🎉 رویداد</option>
+            <option value="جلسه">👥 جلسه</option>
+            <option value="اردو">🚌 اردو</option>
+            <option value="تعطیلی">🏖 تعطیلی</option>
+            <option value="__custom__">➕ نوع دیگر...</option>
+          </select>
+          <input id="rmCustomType" class="input" style="width:100%;margin-top:8px;display:none" placeholder="نوع دلخواه...">
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);font-weight:700">📅 تاریخ</label>
+          <input id="rmDate" class="input" style="width:100%;margin-top:5px;font-size:15px" value="${todayKey()}" placeholder="۱۴۰۵/۰۷/۱۵">
+        </div>
+      </div>
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">🕐 ساعت (اختیاری)</label>
+      <input id="rmTime" class="input" style="width:100%;margin:5px 0 12px" placeholder="مثلاً ۱۰:۳۰">
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📝 توضیحات (اختیاری)</label>
+      <textarea id="rmNote" class="textarea" style="width:100%;margin:5px 0 14px;min-height:70px;resize:vertical" placeholder="مثلاً: فصل ۳ تا صفحه ۴۵"></textarea>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button type="button" class="btn" onclick="saveNewReminder()">✓ ثبت یادآوری</button>
+        <button type="button" class="btn secondary" onclick="document.getElementById('reminderOverlay').remove()">انصراف</button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+
+  document.getElementById("rmType").addEventListener("change", e => {
+    const custom = document.getElementById("rmCustomType");
+    custom.style.display = e.target.value === "__custom__" ? "block" : "none";
+    if(e.target.value === "__custom__") custom.focus();
+  });
+
+  setTimeout(()=>document.getElementById("rmTitle").focus(), 100);
+}
+
+function saveNewReminder(){
+  const title = document.getElementById("rmTitle").value.trim();
+  let type = document.getElementById("rmType").value;
+  const date = document.getElementById("rmDate").value.trim();
+  const time = document.getElementById("rmTime").value.trim();
+  const note = document.getElementById("rmNote").value.trim();
+
+  if(!title){ toast("عنوان یادآوری را وارد کن"); return; }
+  if(type === "__custom__"){
+    type = document.getElementById("rmCustomType").value.trim();
+    if(!type){ toast("نوع یادآوری را وارد کن"); return; }
+  }
+  if(!date){ toast("تاریخ را وارد کن"); return; }
+
+  db.reminders.push({
+    id: "r" + Date.now(),
+    title,
+    type,
+    date,
+    time,
+    note,
+    createdAt: todayKey()
+  });
+  save();
+  document.getElementById("reminderOverlay")?.remove();
+  renderReminders();
+  toast("⏰ یادآوری ثبت شد");
+}
+
+function deleteReminder(id){
+  if(!confirm("این یادآوری حذف شود؟")) return;
+  db.reminders = db.reminders.filter(r=>r.id!==id);
+  save();
+  renderReminders();
+  toast("یادآوری حذف شد");
+}
+
+function renderReminders(){
+  const el = document.getElementById("remindersList");
+  if(!el) return;
+  const today = todayKey();
+  const reminders = [...(db.reminders||[])].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  if(!reminders.length){
+    el.innerHTML = '<div class="empty">هنوز یادآوری‌ای ثبت نشده است.<br>از «افزودن یادآوری» شروع کنید.</div>';
+  } else {
+    const iconMap = {
+      "امتحان":"📝", "تکلیف":"📚", "رویداد":"🎉",
+      "جلسه":"👥", "اردو":"🚌", "تعطیلی":"🏖"
+    };
+    el.innerHTML = reminders.map(r=>{
+      const isPast = String(r.date) < today;
+      const isToday = r.date === today;
+      const icon = iconMap[r.type] || "📌";
+      const color = isPast ? "#95a0b3" : isToday ? "#d98a16" : "#5b5ce2";
+      return `<div class="card" style="margin:10px 0;background:${isToday?'#fff8e6':'#fbfcfe'};box-shadow:none;border-color:${isToday?'#f0d29a':'var(--line)'};opacity:${isPast?0.65:1}">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:200px">
+            <div class="reminder-icon" style="background:${isToday?'#fff':color}15;color:${color}">${icon}</div>
+            <div>
+              <div style="font-weight:800;font-size:15px">${r.title}</div>
+              <div class="muted" style="margin-top:4px">
+                ${r.type} | ${r.date}${r.time?' — '+r.time:''}
+                ${isToday?' <span class="badge warn">امروز</span>':''}
+                ${isPast?' <span class="badge">گذشته</span>':''}
+              </div>
+              ${r.note?`<div style="font-size:12px;color:#7a8497;margin-top:6px">${r.note}</div>`:''}
+            </div>
+          </div>
+          <button class="btn secondary" onclick="deleteReminder('${r.id}')" style="font-size:12px;padding:6px 12px">🗑 حذف</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+  
+  const tasksEl = document.getElementById("remindersTasks");
+  if(!tasksEl) return;
+  const activeTasks = (db.tasks||[]).filter(t=>{
+    if(!t.dueDate) return true;
+    return String(t.dueDate) >= today;
+  }).sort((a,b)=>String(a.dueDate||"9999").localeCompare(String(b.dueDate||"9999")));
+  
+  if(!activeTasks.length){
+    tasksEl.innerHTML = '<div class="empty">تکلیف در جریانی وجود ندارد.</div>';
+    return;
+  }
+  tasksEl.innerHTML = activeTasks.map(t=>{
+    const doneCount = Object.keys(t.done||{}).length;
+    const pct = Math.round((doneCount/students.length)*100);
+    return `<div class="card" style="margin:8px 0;background:#fbfcfe;box-shadow:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <div style="font-weight:800">📘 ${t.title}</div>
+          <div class="muted" style="margin-top:4px">${t.subject||''} ${t.dueDate?'| مهلت: '+t.dueDate:''}</div>
+        </div>
+        <div style="min-width:160px;text-align:left">
+          <div class="muted" style="margin-bottom:4px">انجام: ${fa(doneCount)}/${fa(students.length)} (${fa(pct)}%)</div>
+          <div class="bar"><i style="width:${pct}%"></i></div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderStudents(){
+ let q=(document.getElementById("studentSearch")?.value||"").trim();
+ let arr=students.filter(s=>(fullName(s)+" "+s.nid+" "+s.phone).includes(q));
+ document.getElementById("studentGrid").innerHTML=arr.map(s=>{
+   let a=avg(s.id);let cls=a==="نیاز به تلاش"?"bad":a==="قابل‌قبول"?"warn":a?"good":"";
+   const ac=absenceCount(s.id);
+   const mc=taskMissCount(s.id);
+   const score=studentScore(s.id);
+   const absBadge = ac>1 ? `<span class="badge bad">${fa(ac)} غیبت</span>` : '';
+   const missBadge = mc>1 ? `<span class="badge bad">${fa(mc)} تکلیف نیاورده</span>` : '';
+   const scoreBadge = score > 0 
+     ? `<span class="badge good">⭐ ${fa(score)} امتیاز</span>` 
+     : score < 0 
+       ? `<span class="badge bad">⚠️ ${fa(score)} امتیاز</span>` 
+       : `<span class="badge">۰ امتیاز</span>`;
+   return `<div class="card student" onclick="openStudent(${s.id})"><div class="student-head"><div class="avatar">${s.first[0]}</div><div><h3>${fullName(s)}</h3><div class="meta">کد ملی: ${s.nid}</div></div></div><div class="avg">${fmt(a)} <span class="badge ${cls}">${a?"ارزیابی کیفی":"بدون نمره"}</span> ${scoreBadge} ${absBadge} ${missBadge}</div></div>`;
+ }).join("");
+}
+
+function openStudent(id){
+ let s=findStudent(id);
+ let as=subjects.map(sub=>[sub,avg(id,sub)]);
+ let att=db.attendance.filter(a=>a.sid==id).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ let attRows = att.length ? att.map(a=>{
+   return `<tr>
+     <td>${a.date}</td>
+     <td>
+       <select class="select" style="padding:5px 8px;font-size:12px" onchange="updateStudentAbsence(${id},'${a.date}','status',this.value)">
+         <option value="موجه" ${a.status==="موجه"?"selected":""}>موجه</option>
+         <option value="غیرموجه" ${a.status!=="موجه"?"selected":""}>غیرموجه</option>
+       </select>
+     </td>
+     <td><input class="input" style="padding:5px 8px;font-size:12px" value="${(a.note||"").replace(/"/g,"&quot;")}" placeholder="توضیحات..." onchange="updateStudentAbsence(${id},'${a.date}','note',this.value)"></td>
+   </tr>`;
+ }).join("") : '<tr><td colspan="3" class="empty" style="padding:15px">هیچ غیبتی ثبت نشده است.</td></tr>';
+
+ const misses = db.taskMisses.filter(m=>m.sid==id).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ const missRows = misses.length ? misses.map(m=>`<tr>
+     <td>${m.date}</td>
+     <td>${m.title}</td>
+   </tr>`).join("") : '<tr><td colspan="2" class="empty" style="padding:15px">هیچ تکلیف نیاوردنی ثبت نشده است.</td></tr>';
+
+ const ac = absenceCount(id);
+ const mc = taskMissCount(id);
+ const score = studentScore(id);
+ const manual = (db.manualScores || {})[id] || 0;
+ const excellentCount = db.grades.filter(g => g.sid == id && normalizeQuality(g.score) === "خیلی خوب").length;
+ const behaviorCount = (db.behaviors || []).filter(b => b.sid == id).length;
+ 
+ let warnBadges = '';
+ if(ac>1) warnBadges += `<div class="mini" style="background:#fff8e6;border-color:#f0dca8"><b style="color:#a06a00">⚠️ هشدار غیبت</b><span style="color:#a06a00">${fa(ac)} روز غیبت غیرموجه</span></div>`;
+ if(mc>1) warnBadges += `<div class="mini" style="background:#fdeaea;border-color:#f0b8b8"><b style="color:#b83a3a">📚 هشدار تکلیف نیاوردن</b><span style="color:#b83a3a">${fa(mc)} بار تکلیف نیاورده</span></div>`;
+
+ document.getElementById("modalTitle").textContent=fullName(s);
+ document.getElementById("modalBody").innerHTML=`
+   <div class="profile">
+     <div class="mini"><b>کد ملی</b>${s.nid}</div>
+     <div class="mini"><b>شماره تماس</b>${s.phone}</div>
+     <div class="mini"><b>ارزیابی کلی</b><strong>${fmt(avg(id))}</strong></div>
+     <div class="mini"><b>غیبت / تکلیف نیاورده</b>${fa(ac)} روز / ${fa(mc)} بار</div>
+   </div>
+   <div class="card" style="margin-top:14px;background:${score>0?'#f0faf4':score<0?'#fdeaea':'#fbfcfe'};border-color:${score>0?'#c4ecd5':score<0?'#f0b8b8':'var(--line)'};box-shadow:none">
+     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+       <div><b style="font-size:15px">⭐ امتیاز کل: <span style="color:${score>0?'#159a67':score<0?'#d64545':'#6b7280'};font-size:22px">${fa(score)}</span></b></div>
+       <div style="font-size:12px;color:#7a8497">${fa(excellentCount)} «خیلی خوب» × ۲ − ${fa(behaviorCount)} مورد انضباطی ${manual!==0? (manual>0?'+ '+fa(manual):'− '+fa(Math.abs(manual)))+' دستی':''}</div>
+     </div>
+     <div class="score-btns wide" style="justify-content:center;margin-top:12px">
+       <button class="score-btn minus" onclick="changeStudentScore(${id},-5);openStudent(${id})" title="کم کردن ۵ امتیاز">−۵</button>
+       <button class="score-btn minus" onclick="changeStudentScore(${id},-1);openStudent(${id})" title="کم کردن ۱ امتیاز">−۱</button>
+       <button class="score-btn plus" onclick="changeStudentScore(${id},1);openStudent(${id})" title="دادن ۱ امتیاز">+۱</button>
+       <button class="score-btn plus" onclick="changeStudentScore(${id},5);openStudent(${id})" title="دادن ۵ امتیاز">+۵</button>
+     </div>
+   </div>
+   ${warnBadges}
+   <div class="card" style="margin-top:14px">
+     <h3>ارزیابی درسی</h3>
+     ${as.map(x=>`<div style="margin:12px 0"><div style="display:flex;justify-content:space-between;font-size:12px"><span>${x[0]}</span><b>${fmt(x[1])}</b></div><div class="bar"><i style="width:${x[1]?qualityValue[x[1]]*25:0}%"></i></div></div>`).join("")}
+   </div>
+   <div class="card" style="margin-top:14px">
+     <h3>🧭 سابقه رفتاری و انضباطی</h3>
+     ${(db.behaviors||[]).filter(b=>b.sid==id).length ? `<table><thead><tr><th>تاریخ</th><th>نوع</th><th>توضیحات</th></tr></thead><tbody>${(db.behaviors||[]).filter(b=>b.sid==id).sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(b=>`<tr><td>${b.date}</td><td>${b.type}</td><td>${b.note||'—'}</td></tr>`).join("")}</tbody></table>` : '<div class="empty" style="padding:15px">هیچ مورد رفتاری ثبت نشده است.</div>'}
+   </div>
+   <div class="card" style="margin-top:14px">
+     <h3>سابقه غیبت‌ها</h3>
+     <div style="overflow:auto">
+       <table>
+         <thead><tr><th>تاریخ</th><th>وضعیت</th><th>توضیحات</th></tr></thead>
+         <tbody>${attRows}</tbody>
+       </table>
+     </div>
+   </div>
+   <div class="card" style="margin-top:14px">
+     <h3>📚 سابقه تکلیف نیاوردن</h3>
+     <div style="overflow:auto">
+       <table>
+         <thead><tr><th>تاریخ</th><th>عنوان تکلیف</th></tr></thead>
+         <tbody>${missRows}</tbody>
+       </table>
+     </div>
+   </div>`;
+ document.getElementById("modal").classList.add("show");
+}
+function updateStudentAbsence(sid, date, key, value){
+  const rec = db.attendance.find(a=>a.sid==sid && a.date==date);
+  if(rec){
+    rec[key] = value;
+    save();
+    updateDashboard();
+    toast("ذخیره شد");
+  }
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+
+function renderGradeRows(){ renderExams(); }
+function getExams(){
+ let exams=db.exams||[];
+ if(!exams.length && db.grades.length){
+   const groups={};
+   db.grades.forEach(g=>{let k=(g.date||"امروز")+"|"+g.subject+"|"+(g.type||"آزمون");if(!groups[k])groups[k]={id:"old"+k,date:g.date||"امروز",subject:g.subject,type:g.type||"آزمون",scores:{}};groups[k].scores[g.sid]=normalizeQuality(g.score)});
+   exams=Object.values(groups); db.exams=exams; save();
+ }
+ return exams;
+}
+function renderExams(){
+ const exams=getExams().slice().reverse();
+ const el=document.getElementById("examList");
+ if(!exams.length){el.innerHTML='<div class="empty">هنوز آزمونی ثبت نشده است.<br>از «آزمون جدید» اولین آزمون را بساز.</div>';return}
+ el.innerHTML=exams.map((e,i)=>{
+   const filled = Object.keys(e.scores||{}).length;
+   const pct = Math.round((filled / students.length) * 100);
+   const isFull = filled === students.length;
+   return `<div class="exam-card" onclick="openExam('${e.id}')">
+     <div style="display:flex;align-items:center;gap:13px;flex:1;min-width:0">
+       <div class="exam-icon">📝</div>
+       <div style="min-width:0;flex:1">
+         <div class="exam-title">${e.subject} — ${e.type}</div>
+         <div class="exam-meta">📅 ${e.date}${e.note?' | 📝 '+e.note:''}</div>
+       </div>
+     </div>
+     <div style="text-align:left;min-width:150px">
+       <div class="muted" style="margin-bottom:4px">${isFull?'✅ کامل':'📊 '+fa(filled)+' از '+fa(students.length)}</div>
+       <div class="bar"><i style="width:${pct}%;background:${isFull?'#159a67':'#5b5ce2'}"></i></div>
+     </div>
+     <div class="muted" style="margin-right:12px">مشاهده ←</div>
+   </div>`;
+ }).join("");
+}
+
+// ===== آزمون جدید =====
+function newExam(){
+  const old = document.getElementById("newExamOverlay");
+  if(old) old.remove();
+  const ov = document.createElement("div");
+  ov.id = "newExamOverlay";
+  ov.className = "behavior-overlay";
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `
+    <div class="behavior-panel" style="width:min(620px,100%)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px">
+        <h2 style="margin:0">📝 ساخت آزمون جدید</h2>
+        <button type="button" class="btn secondary" onclick="document.getElementById('newExamOverlay').remove()">✕</button>
+      </div>
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📚 درس</label>
+      <select id="neSubject" class="select" style="width:100%;margin:5px 0 12px;font-size:15px">
+        ${subjects.map(s=>`<option value="${s}">${s}</option>`).join("")}
+        <option value="__custom__">➕ درس دیگر...</option>
+      </select>
+      <input id="neCustomSubject" class="input" style="width:100%;margin-bottom:12px;display:none" placeholder="نام درس را وارد کن...">
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📋 نوع ارزشیابی</label>
+      <select id="neType" class="select" style="width:100%;margin:5px 0 12px;font-size:15px">
+        <option value="آزمون کتبی">آزمون کتبی</option>
+        <option value="آزمون شفاهی">آزمون شفاهی</option>
+        <option value="پرسش کلاسی">پرسش کلاسی</option>
+        <option value="کوییز">کوییز</option>
+        <option value="امتحان میان‌ترم">امتحان میان‌ترم</option>
+        <option value="امتحان پایان‌ترم">امتحان پایان‌ترم</option>
+        <option value="فعالیت کلاسی">فعالیت کلاسی</option>
+        <option value="پروژه">پروژه</option>
+        <option value="__custom__">➕ نوع دیگر...</option>
+      </select>
+      <input id="neCustomType" class="input" style="width:100%;margin-bottom:12px;display:none" placeholder="نوع ارزشیابی را وارد کن...">
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📅 تاریخ آزمون</label>
+      <input id="neDate" class="input" style="width:100%;margin:5px 0 12px;font-size:15px" value="${todayKey()}" placeholder="۱۴۰۵/۰۷/۱۰">
+
+      <label style="font-size:12px;color:var(--muted);font-weight:700">📝 توضیحات (اختیاری)</label>
+      <input id="neNote" class="input" style="width:100%;margin:5px 0 14px" placeholder="مثلاً: فصل ۳ ریاضی">
+
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button type="button" class="btn" onclick="saveNewExam()">✓ ساخت و ثبت نمرات</button>
+        <button type="button" class="btn secondary" onclick="document.getElementById('newExamOverlay').remove()">انصراف</button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+
+  document.getElementById("neSubject").addEventListener("change", e => {
+    const custom = document.getElementById("neCustomSubject");
+    custom.style.display = e.target.value === "__custom__" ? "block" : "none";
+    if(e.target.value === "__custom__") custom.focus();
+  });
+  document.getElementById("neType").addEventListener("change", e => {
+    const custom = document.getElementById("neCustomType");
+    custom.style.display = e.target.value === "__custom__" ? "block" : "none";
+    if(e.target.value === "__custom__") custom.focus();
+  });
+}
+
+function saveNewExam(){
+  let subject = document.getElementById("neSubject").value;
+  let type = document.getElementById("neType").value;
+  const date = document.getElementById("neDate").value.trim();
+  const note = document.getElementById("neNote").value.trim();
+
+  if(subject === "__custom__"){
+    subject = document.getElementById("neCustomSubject").value.trim();
+    if(!subject){ toast("نام درس را وارد کن"); return; }
+  }
+  if(type === "__custom__"){
+    type = document.getElementById("neCustomType").value.trim();
+    if(!type){ toast("نوع ارزشیابی را وارد کن"); return; }
+  }
+  if(!date){ toast("تاریخ را وارد کن"); return; }
+
+  const e = { id:"e"+Date.now(), date, subject, type, note, scores:{} };
+  db.exams = db.exams || [];
+  db.exams.push(e);
+  save();
+  document.getElementById("newExamOverlay")?.remove();
+  renderExams();
+  updateDashboard();
+  openExam(e.id);
+  toast("📝 آزمون جدید ساخته شد");
+}
+
+function openExam(id){
+  const e = (db.exams||[]).find(x => x.id == id);
+  if(!e) return;
+  const el = document.getElementById("examEditor");
+  el.style.display = "block";
+  const filled = Object.keys(e.scores||{}).length;
+  const pct = Math.round((filled / students.length) * 100);
+  
+  el.innerHTML = `
+    <div class="section-title">
+      <div>
+        <h2>${e.subject} — ${e.type}</h2>
+        <span class="muted">📅 ${e.date} ${e.note?' | 📝 '+e.note:''} | پیشرفت: ${fa(filled)} از ${fa(students.length)} (${fa(pct)}%)</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn secondary" onclick="autoFillExam('${e.id}','خیلی خوب')" title="پر کردن همه با خیلی خوب">⚡ همه خیلی خوب</button>
+        <button class="btn secondary" onclick="clearExamScores('${e.id}')">🗑 پاک کردن</button>
+        <button class="btn secondary" onclick="closeExam()">✕ بستن</button>
+      </div>
+    </div>
+    <div class="bar" style="margin-bottom:14px"><i style="width:${pct}%"></i></div>
+    <table><thead><tr><th style="width:60px">ردیف</th><th>دانش‌آموز</th><th style="width:220px">ارزیابی کیفی</th></tr></thead><tbody>
+      ${students.map(s=>`<tr>
+        <td>${fa(s.id)}</td>
+        <td><b>${fullName(s)}</b></td>
+        <td>
+          <select class="select exam-score" data-sid="${s.id}" style="width:100%">
+            <option value="">— انتخاب کنید —</option>
+            ${qualityLevels.map(q=>`<option value="${q}" ${(normalizeQuality(e.scores[s.id])===q)?"selected":""}>${q}</option>`).join("")}
+          </select>
+        </td>
+      </tr>`).join("")}
+    </tbody></table>
+    <div style="margin-top:15px;display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap">
+      <button class="btn danger" onclick="deleteExam('${e.id}')">🗑 حذف کل آزمون</button>
+      <button class="btn" onclick="saveExam('${e.id}')">💾 ذخیره نمرات این آزمون</button>
+    </div>`;
+  el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function autoFillExam(id, quality){
+  if(!confirm(`همهٔ دانش‌آموزان «${quality}» بگیرند؟`)) return;
+  document.querySelectorAll(".exam-score").forEach(sel=>{ sel.value = quality; });
+  toast("همه پر شد — حالا ذخیره کن");
+}
+
+function clearExamScores(id){
+  if(!confirm("همهٔ نمرات این آزمون پاک شوند؟")) return;
+  document.querySelectorAll(".exam-score").forEach(sel=>{ sel.value = ""; });
+  toast("پاک شد — حالا ذخیره کن");
+}
+
+function deleteExam(id){
+  if(!confirm("کل این آزمون و همهٔ نمراتش حذف شوند؟")) return;
+  db.exams = (db.exams||[]).filter(x=>x.id!==id);
+  db.grades = db.grades.filter(g=>g.examId !== id);
+  save();
+  closeExam();
+  renderExams();
+  updateDashboard();
+  toast("آزمون حذف شد");
+}
+
+function closeExam(){document.getElementById("examEditor").style.display="none"}
+
+function saveExam(id){
+ const e=(db.exams||[]).find(x=>x.id==id);if(!e)return;
+ document.querySelectorAll(".exam-score").forEach(i=>{if(i.value!=="")e.scores[i.dataset.sid]=normalizeQuality(i.value);else delete e.scores[i.dataset.sid]});
+ db.grades=db.grades.filter(g=>!(g.examId==id));
+ Object.entries(e.scores).forEach(([sid,score])=>db.grades.push({examId:id,sid:+sid,subject:e.subject,type:e.type,date:e.date,score}));
+ save();toast("نمرات آزمون ذخیره شد و در دفتر نمرات همان درس ثبت شد");renderExams();openExam(id);if(document.getElementById("gradebook")?.classList.contains("active")){renderGradebook(e.subject)}updateDashboard();
+}
+
+function renderAttendanceDates(){
+  const el=document.getElementById("attendanceDates");
+  if(!el) return;
+  const dates=[...new Set(db.attendance.map(a=>a.date))].sort((a,b)=>String(b).localeCompare(String(a)));
+  const today=todayKey();
+  if(!dates.includes(today)) dates.unshift(today);
+  if(!dates.length){
+    el.innerHTML='<div class="empty">هنوز تاریخ حضور و غیابی ثبت نشده است.</div>';
+    return;
+  }
+  el.innerHTML=dates.map(d=>{
+    const count=db.attendance.filter(a=>a.date===d).length;
+    const isToday = d===today;
+    return `<div class="exam-card" onclick="openAttendance('${d}')" style="${isToday?'border:2px solid #5b5ce2':''}">
+      <div style="display:flex;align-items:center;gap:13px"><div class="exam-icon">📅</div><div><div class="exam-title">${d} ${isToday?'<span class="badge good" style="margin-right:6px">امروز</span>':''}</div><div class="exam-meta">${count?fa(count)+" غایب ثبت شده":"بدون غایب"}</div></div></div>
+      <div class="muted">مشاهده ←</div>
+    </div>`;
+  }).join("");
+}
+function showNewAttendanceDate(){
+  const date=prompt("تاریخ جدید را وارد کنید (مثلاً ۱۴۰۵/۰۷/۱۰):",todayKey());
+  if(!date) return;
+  openAttendance(date);
+}
+function openAttendance(date){
+  const box=document.getElementById("attendanceEditor");
+  if(!box) return;
+  const abs=db.attendance.filter(a=>a.date===date);
+  const isToday = date === todayKey();
+  box.innerHTML=`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+        <div>
+          <h3 style="margin:0">حضور و غیاب کلاس — ${date} ${isToday?'<span class="badge good" style="margin-right:6px">امروز</span>':''}</h3>
+          <div class="meta">تیک یعنی حاضر — برای غایب کردن، تیک را بردارید</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn secondary" onclick="document.querySelectorAll('.att-check').forEach(x=>x.checked=true)">تیک همه</button>
+          <button class="btn secondary" onclick="closeAttendanceEditor()">✕ بستن</button>
+        </div>
+      </div>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr><th style="width:70px">ردیف</th><th>نام و نام خانوادگی</th><th style="width:130px;text-align:center">حاضر</th></tr>
+          </thead>
+          <tbody>
+            ${students.map((s,i)=>{
+              const isAbsent=abs.some(a=>a.sid===s.id);
+              return `<tr>
+                <td>${fa(i+1)}</td>
+                <td><b>${fullName(s)}</b></td>
+                <td style="text-align:center">
+                  <label style="display:flex;justify-content:center;align-items:center;gap:8px;cursor:pointer">
+                    <input class="att-check" type="checkbox" data-sid="${s.id}" data-date="${date}" ${!isAbsent?"checked":""} style="width:22px;height:22px">
+                    <span>حاضر</span>
+                  </label>
+                </td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+      <button class="btn primary" style="width:100%;margin-top:14px" onclick="confirmAttendance('${date}')">✓ تأیید حضور و غیاب</button>
+    </div>
+  `;
+  const existingAbs = db.attendance.filter(a=>a.date===date);
+  if(existingAbs.length) renderAbsenceAccordion(date);
+  else document.getElementById("absenceHistory").innerHTML = "";
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function closeAttendanceEditor(){
+  const box=document.getElementById("attendanceEditor");
+  if(box) box.innerHTML="";
+  const hist=document.getElementById("absenceHistory");
+  if(hist) hist.innerHTML="";
+}
+function confirmAttendance(date){
+  const d = date || todayKey();
+  if(!d){ toast("تاریخ نامعتبر است"); return; }
+  db.attendance = db.attendance.filter(a => a.date !== d);
+  const checks = document.querySelectorAll(`.att-check[data-date="${d}"]`);
+  if(!checks.length){ toast("لیست دانش‌آموزان یافت نشد"); return; }
+  let absentCount = 0;
+  checks.forEach(ch => {
+    if(!ch.checked){
+      db.attendance.push({ sid: Number(ch.dataset.sid), date: d, status: "غیرموجه", note: "" });
+      absentCount++;
+    }
+  });
+  save();
+  updateDashboard();
+  renderAttendanceDates();
+  renderAbsenceAccordion(d);
+  toast(absentCount > 0 ? `حضور و غیاب ثبت شد — ${fa(absentCount)} غایب` : "حضور و غیاب ثبت شد — همه حاضر");
+}
+
+function renderAbsenceAccordion(date){
+  const host = document.getElementById("absenceHistory");
+  if(!host) return;
+  const rows = db.attendance.filter(a=>a.date===date);
+  const isToday = date === todayKey();
+  
+  if(!rows.length){
+    host.innerHTML = `<div class="acc-item open"><div class="acc-head"><div class="acc-title"><div class="acc-icon">✅</div><div><div class="acc-name">غایبین این تاریخ</div><div class="acc-meta">هیچ غایبی ثبت نشده — همه حاضر بودند</div></div></div></div></div>`;
+    return;
+  }
+  
+  host.innerHTML = `
+    <div class="acc-item ${isToday?'open':''}" id="absAcc">
+      <div class="acc-head" onclick="toggleAcc('absAcc')">
+        <div class="acc-title">
+          <div class="acc-icon">📋</div>
+          <div>
+            <div class="acc-name">اسامی غایبین تاریخ ${date} ${isToday?'<span class="badge good" style="margin-right:6px">امروز</span>':''}</div>
+            <div class="acc-meta">${fa(rows.length)} غایب ${isToday?'— باز':'— برای مشاهده کلیک کنید'}</div>
+          </div>
+        </div>
+        <div class="acc-arrow">▾</div>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-inner">
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>دانش‌آموز</th>
+                  <th style="width:150px">وضعیت</th>
+                  <th>توضیحات</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map((a,i)=>{
+                  const s = findStudent(a.sid);
+                  return `<tr>
+                    <td>${fa(i+1)}</td>
+                    <td><b>${s?fullName(s):"—"}</b></td>
+                    <td>
+                      <select class="select" style="padding:6px 8px;font-size:12px" onchange="updateAbsenceByDate('${date}',${a.sid},'status',this.value)">
+                        <option value="موجه" ${a.status==="موجه"?"selected":""}>✅ موجه</option>
+                        <option value="غیرموجه" ${a.status!=="موجه"?"selected":""}>❌ غیرموجه</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="input" style="padding:6px 8px;font-size:12px;width:100%" value="${(a.note||"").replace(/"/g,"&quot;")}" placeholder="توضیحات..." onchange="updateAbsenceByDate('${date}',${a.sid},'note',this.value)">
+                    </td>
+                  </tr>`;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function toggleAcc(id){
+  const el = document.getElementById(id);
+  if(el) el.classList.toggle("open");
+}
+function updateAbsenceByDate(date, sid, key, value){
+  const rec = db.attendance.find(a=>a.date===date && a.sid==sid);
+  if(rec){
+    rec[key] = value;
+    save();
+    updateDashboard();
+    toast("ذخیره شد");
+  }
+}
+
+// ===== Tasks =====
+function addTask(){
+  const title = prompt("عنوان تکلیف:");
+  if(!title) return;
+  const desc = prompt("توضیحات (اختیاری):", "") || "";
+  const subject = prompt("درس مربوطه (اختیاری):", "") || "";
+  const dueDate = prompt("مهلت انجام (اختیاری - مثلاً ۱۴۰۵/۰۷/۱۵):", "") || "";
+  const task = {
+    id: "t" + Date.now(),
+    title: title.trim(),
+    desc: desc.trim(),
+    subject: subject.trim(),
+    dueDate: dueDate.trim(),
+    createdAt: todayKey(),
+    done: {},
+    checked: false
+  };
+  db.tasks.push(task);
+  save();
+  renderTasks();
+  renderReminders();
+  toast("تکلیف اضافه شد");
+}
+function renderTasks(){
+  const el = document.getElementById("tasksList");
+  if(!el) return;
+  const tasks = [...(db.tasks||[])].sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+  if(!tasks.length){
+    el.innerHTML = '<div class="empty">هنوز تکلیفی ثبت نشده است.<br>از «افزودن تکلیف» اولین تکلیف را بسازید.</div>';
+    return;
+  }
+  el.innerHTML = tasks.map(t=>{
+    const doneCount = Object.keys(t.done||{}).length;
+    const pct = Math.round((doneCount/students.length)*100);
+    return `<div class="card" style="margin:10px 0;background:#fbfcfe;box-shadow:none;border-color:${t.checked?'#c4ecd5':'var(--line)'}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <h3 style="margin:0 0 6px;font-size:15px">📘 ${t.title} ${t.checked?'<span class="badge good">✓ بررسی شده</span>':''}</h3>
+          ${t.subject?`<div class="badge good" style="margin-bottom:6px">${t.subject}</div>`:''}
+          ${t.desc?`<div style="font-size:12px;color:#7a8497;margin-top:6px">${t.desc}</div>`:''}
+          <div class="muted" style="margin-top:8px">ایجاد: ${t.createdAt} ${t.dueDate?'| مهلت: '+t.dueDate:''}</div>
+        </div>
+        <div style="text-align:left;min-width:180px">
+          <div style="font-size:12px;color:#7a8497;margin-bottom:5px">انجام شده: ${fa(doneCount)} از ${fa(students.length)}</div>
+          <div class="bar" style="margin-bottom:10px"><i style="width:${pct}%"></i></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="btn ${t.checked?'secondary':''}" onclick="checkTask('${t.id}')" style="font-size:12px;padding:6px 12px">${t.checked?'✓ بررسی شد':'✓ نگاه شد (ثبت نیاورده‌ها)'}</button>
+            <button class="btn secondary" onclick="deleteTask('${t.id}')" style="font-size:12px;padding:6px 12px">🗑 حذف</button>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;max-height:200px;overflow:auto;border-top:1px solid var(--line);padding-top:10px">
+        <div style="font-size:12px;color:#7a8497;margin-bottom:6px">وضعیت دانش‌آموزان (کلیک برای تغییر):</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          ${students.map(s=>{
+            const isDone = (t.done||{})[s.id];
+            return `<span class="badge" style="background:${isDone?'#e7f7ef':'#fdeaea'};color:${isDone?'#159a67':'#d64545'};cursor:pointer" onclick="toggleTaskDone('${t.id}',${s.id})" title="کلیک برای تغییر وضعیت">${isDone?'✓ ':''}${fullName(s)}</span>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+function toggleTaskDone(taskId, sid){
+  const t = db.tasks.find(x=>x.id===taskId);
+  if(!t) return;
+  t.done = t.done || {};
+  if(t.done[sid]) delete t.done[sid];
+  else t.done[sid] = true;
+  save();
+  renderTasks();
+}
+function checkTask(taskId){
+  const t = db.tasks.find(x=>x.id===taskId);
+  if(!t) return;
+  if(t.checked){
+    if(!confirm("این تکلیف قبلاً بررسی شده است. آیا می‌خواهید دوباره بررسی کنید و تکلیف نیاورده‌ها دوباره ثبت شوند؟")) return;
+    db.taskMisses = db.taskMisses.filter(m=>m.taskId!==taskId);
+  }
+  const notDone = students.filter(s => !(t.done||{})[s.id]);
+  if(!notDone.length){
+    t.checked = true;
+    save();
+    renderTasks();
+    renderTaskOffenders();
+    toast("همه تکالیف انجام شده — کسی نیاورده ندارد");
+    return;
+  }
+  const date = todayKey();
+  notDone.forEach(s=>{
+    db.taskMisses.push({
+      sid: s.id,
+      taskId: taskId,
+      title: t.title,
+      date: date
+    });
+  });
+  t.checked = true;
+  save();
+  renderTasks();
+  renderTaskOffenders();
+  updateDashboard();
+  toast(`${fa(notDone.length)} دانش‌آموز تکلیف نیاورده ثبت شد`);
+}
+function deleteTask(id){
+  if(!confirm("این تکلیف حذف شود؟")) return;
+  db.tasks = db.tasks.filter(t=>t.id!==id);
+  db.taskMisses = db.taskMisses.filter(m=>m.taskId!==id);
+  save();
+  renderTasks();
+  renderTaskOffenders();
+  renderReminders();
+  toast("تکلیف حذف شد");
+}
+function renderTaskOffenders(){
+  const el = document.getElementById("taskOffendersList");
+  if(!el) return;
+  const offenders = getFrequentTaskMissers();
+  if(!offenders.length){
+    el.innerHTML = '<div class="empty">هیچ دانش‌آموزی بیش از یک بار تکلیف نیاورده است ✅</div>';
+    return;
+  }
+  el.innerHTML = `<div style="overflow:auto"><table>
+    <thead><tr><th>ردیف</th><th>دانش‌آموز</th><th>تعداد دفعات</th><th>آخرین مورد</th></tr></thead>
+    <tbody>
+      ${offenders.map((x,i)=>{
+        const lastMiss = [...db.taskMisses].filter(m=>m.sid===x.student.id).sort((a,b)=>String(b.date).localeCompare(String(a.date)))[0];
+        return `<tr style="cursor:pointer" onclick="openStudent(${x.student.id})">
+          <td>${fa(i+1)}</td>
+          <td><b>${fullName(x.student)}</b></td>
+          <td><span class="badge bad">${fa(x.count)} بار</span></td>
+          <td>${lastMiss?lastMiss.title+' ('+lastMiss.date+')':'—'}</td>
+        </tr>`;
+      }).join("")}
+    </tbody>
+  </table></div>`;
+}
+
+function renderAnalysis(){
+ const box=document.getElementById("analysisSubjects");
+ box.innerHTML=subjects.map(s=>{
+   const a=classAvg(s), counts={};
+   db.grades.filter(g=>g.subject===s).forEach(g=>{const q=normalizeQuality(g.score);if(q)counts[q]=(counts[q]||0)+1});
+   return `<div class="mini" style="margin:10px 0"><b>${s}</b><strong>${fmt(a)}</strong><div style="font-size:12px;color:#7a8497;margin-top:6px">${qualityLevels.map(q=>q+" : "+fa(counts[q]||0)).join(" | ")}</div></div>`;
+ }).join("");
+ 
+ const riskGrade = students.filter(s=>avg(s.id)==="نیاز به تلاش");
+ const riskAbsent = students.filter(s=>absenceCount(s.id) > 1);
+ const riskMiss = students.filter(s=>taskMissCount(s.id) > 1);
+ 
+ const riskMap = new Map();
+ riskGrade.forEach(s=>riskMap.set(s.id, {student:s, reasons:["نمره نیاز به تلاش"]}));
+ riskAbsent.forEach(s=>{
+   if(riskMap.has(s.id)) riskMap.get(s.id).reasons.push("غیبت مکرر");
+   else riskMap.set(s.id, {student:s, reasons:["غیبت مکرر"]});
+ });
+ riskMiss.forEach(s=>{
+   if(riskMap.has(s.id)) riskMap.get(s.id).reasons.push("تکلیف نیاوردن مکرر");
+   else riskMap.set(s.id, {student:s, reasons:["تکلیف نیاوردن مکرر"]});
+ });
+ 
+ const r = [...riskMap.values()];
+ document.getElementById("riskList").innerHTML = r.length 
+   ? r.map(x=>`<div class="mini" style="margin:8px 0;cursor:pointer" onclick="openStudent(${x.student.id})">
+       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+         <b>${fullName(x.student)}</b>
+         <div style="display:flex;gap:4px;flex-wrap:wrap">
+           ${x.reasons.map(reason=>`<span class="badge bad">${reason}</span>`).join("")}
+         </div>
+       </div>
+     </div>`).join("")
+   : '<div class="empty">در حال حاضر دانش‌آموز نیازمند توجهی ثبت نشده است.</div>';
+}
+
+function renderReportSelect(){
+  let el=document.getElementById("reportStudent");
+  if(el) el.innerHTML='<option value="">انتخاب دانش‌آموز</option>'+students.map(s=>`<option value="${s.id}">${fullName(s)}</option>`).join("");
+}
+function renderReportDates(){
+  const el=document.getElementById("reportDate");
+  if(!el) return;
+  const dates=[...new Set(db.grades.map(g=>g.date).filter(Boolean))].sort((a,b)=>String(b).localeCompare(String(a)));
+  const today=todayKey();
+  if(!dates.includes(today)) dates.unshift(today);
+  el.innerHTML='<option value="">همه تاریخ‌ها</option>'+dates.map(d=>`<option value="${d}">${d}</option>`).join("");
+}
+function makeReport(){
+  let id=+document.getElementById("reportStudent").value;
+  if(!id){toast("دانش‌آموز را انتخاب کنید");return;}
+  const selDate=document.getElementById("reportDate").value;
+  let s=findStudent(id);
+  let gradeFilter = db.grades.filter(g=>g.sid==id && (!selDate || g.date===selDate));
+  let rows=subjects.map(sub=>{
+    let filtered = gradeFilter.filter(g=>g.subject===sub);
+    let q = filtered.length ? (()=>{
+      const a=filtered.map(g=>normalizeQuality(g.score)).filter(Boolean);
+      if(!a.length) return null;
+      const counts={};a.forEach(x=>counts[x]=(counts[x]||0)+1);
+      return qualityLevels.slice().sort((x,y)=>(counts[y]||0)-(counts[x]||0) || qualityValue[y]-qualityValue[x])[0];
+    })() : null;
+    return `<tr><td>${sub}</td><td>${q?q:"—"}</td><td>${q?"ثبت شده":"بدون نمره"}</td></tr>`;
+  }).join("");
+  let overall=null;
+  if(selDate){
+    const allQ = gradeFilter.map(g=>normalizeQuality(g.score)).filter(Boolean);
+    if(allQ.length){
+      const counts={};allQ.forEach(x=>counts[x]=(counts[x]||0)+1);
+      overall=qualityLevels.slice().sort((x,y)=>(counts[y]||0)-(counts[x]||0) || qualityValue[y]-qualityValue[x])[0];
+    }
+  } else {
+    overall=avg(id);
+  }
+
+  document.getElementById("reportArea").innerHTML=`
+    <div id="printable">
+      <div style="text-align:center;margin-bottom:20px">
+        <h2 style="margin-bottom:5px">کارنامه توصیفی پایه ششم ابتدایی</h2>
+        <p style="margin:5px 0"><strong>دبستان فرهنگیان</strong></p>
+        <p style="margin:5px 0">سال تحصیلی ۱۴۰۴-۱۴۰۵</p>
+        <p style="margin:5px 0">معلم: عرفان امینی</p>
+        <hr style="border:none;border-top:1px solid #ccc;margin:15px 0">
+        <p style="margin:5px 0">نام دانش‌آموز: <strong>${fullName(s)}</strong></p>
+        <p style="margin:5px 0">کد ملی: ${s.nid} ${selDate?'| تاریخ: '+selDate:''}</p>
+      </div>
+      <table>
+        <tr><th>درس</th><th>ارزیابی کیفی</th><th>وضعیت</th></tr>
+        ${rows}
+      </table>
+      <div class="profile" style="margin-top:15px">
+        <div class="mini"><b>ارزیابی کلی</b>${overall||"—"}</div>
+      </div>
+      <p style="margin-top:25px">یادداشت معلم: ................................................................................................</p>
+    </div>`;
+}
+function printReport(){
+  if(!document.getElementById("printable")){toast("ابتدا کارنامه را نمایش دهید");return}
+  let w=window.open("","_blank");
+  w.document.write(`<html dir="rtl"><head><meta charset="utf-8"><title>کارنامه</title>
+  <style>body{font-family:Tahoma;padding:30px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ddd;padding:10px;text-align:right}
+  
+/* ===== Top Horizontal Navigation ===== */
+.side{position:fixed;right:0;left:0;top:0;bottom:auto;width:100%;height:auto;padding:8px 14px;display:flex;align-items:center;gap:12px;background:rgba(20,27,45,.98);box-shadow:0 8px 30px rgba(20,27,45,.12);z-index:100}
+.brand{display:none}
+.nav{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{width:auto;flex:0 0 auto;margin:0;padding:11px 13px;border-radius:12px;white-space:nowrap;text-align:center}
+.main{margin-right:0;margin-left:0;width:100%;max-width:none;padding-top:105px}
+@media(max-width:950px){.side{width:100%;height:auto;padding:7px 8px}.nav{justify-content:flex-start;gap:6px}.nav button{font-size:12px;padding:10px 12px}.main{margin-right:0;width:100%;padding-top:92px}}
+@media(max-width:650px){.side{width:100%;padding:7px 6px}.nav{justify-content:flex-start}.nav button{font-size:11px;padding:9px 10px}.main{margin-right:0;width:100%;padding:88px 14px 14px}}
+</style></head><body>${document.getElementById("printable").innerHTML}</body></html>`);
+  w.document.close();w.print();
+}
+function exportData(){
+  // همه اطلاعات از جمله گروه‌ها، مبصر و زنگ ورزش داخل همان JSON ذخیره می‌شوند.
+  const backup={...db,
+    groups:Array.isArray(db.groups)?db.groups:[],
+    classMonitor:db.classMonitor??null,
+    sport:db.sport||{leaders:[],teams:[],teamCount:2,participants:[]}
+  };
+  let blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="class6-backup.json";a.click();URL.revokeObjectURL(a.href)
+}
+function normalizeImportedDB(){
+  db.exams=db.exams||[];
+  db.tasks=db.tasks||[];
+  db.reminders=db.reminders||[];
+  db.taskMisses=db.taskMisses||[];
+  db.behaviors=db.behaviors||[];
+  db.groups=Array.isArray(db.groups)?db.groups:[];
+  db.classMonitor=(db.classMonitor===undefined?null:db.classMonitor);
+  db.sport=db.sport||{leaders:[],teams:[],teamCount:2,participants:[]};
+  db.sport.leaders=Array.isArray(db.sport.leaders)?db.sport.leaders:[];
+  db.sport.teams=Array.isArray(db.sport.teams)?db.sport.teams:[];
+  db.sport.participants=Array.isArray(db.sport.participants)?db.sport.participants:[];
+  db.sport.teamCount=Number(db.sport.teamCount)||2;
+  db.manualScores=db.manualScores||{};
+  db.lessonPlanDone=db.lessonPlanDone||{};
+}
+function importData(e){
+  let f=e.target.files[0];if(!f)return;
+  let r=new FileReader();
+  r.onload=()=>{
+    try{
+      const imported=JSON.parse(r.result);
+      if(!imported||typeof imported!=="object"||Array.isArray(imported))throw new Error("bad");
+      db=imported;
+      normalizeImportedDB();
+      save();
+      // بعد از بازیابی، هر دو بخش را فوراً دوباره رسم کن.
+      renderGroups();
+      renderMonitor();
+      renderSport();
+      updateDashboard();
+      toast("پشتیبان کامل بازیابی شد؛ گروه‌ها، مبصر و ورزش هم ذخیره شدند");
+    }catch{toast("فایل JSON نامعتبر است")}
+  };
+  r.readAsText(f)
+}
+function clearAll(){if(confirm("همه اطلاعات (نمرات، حضور و غیاب، تکالیف، رفتار، گروه‌ها، مبصر، ورزش و امتیازات دستی) پاک می‌شوند. مطمئن هستید؟")){db={grades:[],attendance:[],tasks:[],exams:[],reminders:[],taskMisses:[],behaviors:[],groups:[],classMonitor:null,sport:{leaders:[],teams:[],teamCount:2,participants:[]},manualScores:{}};save();toast("اطلاعات ثبت‌شده پاک شد")}}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",1800)}
+
+// ===== Login =====
+window.addEventListener("load", ()=>{
+  setTimeout(()=>{
+    document.getElementById("loadingScreen").classList.add("hide");
+    setTimeout(()=>{
+      document.getElementById("loadingScreen").style.display = "none";
+      document.getElementById("loginScreen").classList.add("show");
+    }, 500);
+  }, 1500);
+});
+
+function backToMain(){
+  document.querySelectorAll(".login-form").forEach(f=>f.classList.remove("show"));
+  document.getElementById("loginMain").style.display = "block";
+  document.getElementById("teacherPassword").value = "";
+  document.getElementById("studentUsername").value = "";
+  document.getElementById("studentPassword").value = "";
+  document.getElementById("teacherError").classList.remove("show");
+  document.getElementById("studentError").classList.remove("show");
+}
+function showTeacherLogin(){
+  document.getElementById("loginMain").style.display = "none";
+  document.getElementById("teacherLoginForm").classList.add("show");
+  setTimeout(()=>document.getElementById("teacherPassword").focus(), 100);
+}
+function showStudentLogin(){
+  document.getElementById("loginMain").style.display = "none";
+  document.getElementById("studentLoginForm").classList.add("show");
+  setTimeout(()=>document.getElementById("studentUsername").focus(), 100);
+}
+function doTeacherLogin(){
+  const pass = document.getElementById("teacherPassword").value.trim();
+  const normalized = pass.replace(/[۰-۹]/g, d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+  if(normalized === "1377" || pass === "۱۳۷۷"){
+    document.getElementById("teacherError").classList.remove("show");
+    document.getElementById("loginScreen").classList.remove("show");
+    document.getElementById("teacherPanel").style.display = "flex";
+    updateDashboard();
+    renderExams();
+    renderAttendanceDates();
+    renderTasks();
+    renderTaskOffenders();
+    renderReminders();
+    renderReportSelect();
+    renderReportDates();
+    renderScoreboard();
+    renderBehavior();
+    renderMonitor();
+    renderSport();
+  } else {
+    document.getElementById("teacherError").classList.add("show");
+  }
+}
+function doStudentLogin(){
+  const un = document.getElementById("studentUsername").value.trim();
+  const pw = document.getElementById("studentPassword").value.trim();
+  const student = findStudentByNid(un);
+  if(!student || findStudentByNid(pw)?.id !== student.id){
+    document.getElementById("studentError").classList.add("show");
+    return;
+  }
+  currentStudent = student;
+  document.getElementById("studentError").classList.remove("show");
+  document.getElementById("loginScreen").classList.remove("show");
+  document.getElementById("studentPanel").classList.add("show");
+  document.getElementById("spName").textContent = "پنل " + fullName(student);
+  spShowTab('grades', document.querySelector('.sp-tab'));
+  spRenderGrades();
+  spRenderTasks();
+  spRenderAbsence();
+  document.getElementById("spReportArea").innerHTML = "";
+}
+function logout(){
+  currentStudent = null;
+  document.getElementById("teacherPanel").style.display = "none";
+  document.getElementById("studentPanel").classList.remove("show");
+  document.getElementById("loginScreen").classList.add("show");
+  backToMain();
+  closeModal();
+  closeAttendanceEditor();
+}
+
+// ===== Student Panel =====
+function spShowTab(tab, el){
+  document.querySelectorAll(".sp-tab").forEach(t=>t.classList.remove("active"));
+  if(el) el.classList.add("active");
+  document.getElementById("spTabGrades").style.display = tab==="grades" ? "block" : "none";
+  document.getElementById("spTabTasks").style.display = tab==="tasks" ? "block" : "none";
+  document.getElementById("spTabReport").style.display = tab==="report" ? "block" : "none";
+  document.getElementById("spTabAbsence").style.display = tab==="absence" ? "block" : "none";
+}
+function spRenderGrades(){
+  if(!currentStudent) return;
+  const id = currentStudent.id;
+  const el = document.getElementById("spGradesList");
+  const items = subjects.map(sub=>{
+    const q = avg(id, sub);
+    return `<div class="grade-row">
+      <span class="sub">${sub}</span>
+      <b>${q||"—"}</b>
+    </div>`;
+  }).join("");
+  const overall = avg(id);
+  const score = studentScore(id);
+  const manual = (db.manualScores || {})[id] || 0;
+  el.innerHTML = items + `<div class="grade-row" style="margin-top:8px;border-top:2px solid #5b5ce2;padding-top:12px">
+      <span class="sub" style="color:#5b5ce2">ارزیابی کلی</span>
+      <b style="color:#5b5ce2">${overall||"—"}</b>
+    </div>
+    ${manual !== 0 ? `<div class="grade-row" style="border-top:1px dashed #f0d29a;padding-top:10px;margin-top:6px">
+      <span class="sub" style="color:#d98a16">🎁 امتیاز دستی معلم</span>
+      <b style="color:${manual>0?'#159a67':'#d64545'}">${manual>0?'+'+fa(manual):fa(manual)}</b>
+    </div>` : ''}
+    <div class="grade-row" style="border-top:2px solid #f0d29a;padding-top:12px;margin-top:8px">
+      <span class="sub" style="color:#d98a16">⭐ امتیاز کل</span>
+      <b style="color:${score>0?'#159a67':score<0?'#d64545':'#6b7280'};font-size:18px">${fa(score)}</b>
+    </div>`;
+}
+function spRenderTasks(){
+  if(!currentStudent) return;
+  const el = document.getElementById("spTasksList");
+  const sid = currentStudent.id;
+  const tasks = [...(db.tasks||[])].sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+  if(!tasks.length){
+    el.innerHTML = '<div class="empty">هنوز تکلیفی برای شما ثبت نشده است.</div>';
+    return;
+  }
+  const pending = tasks.filter(t => !(t.done && t.done[sid]));
+  const done = tasks.filter(t => t.done && t.done[sid]);
+  
+  let html = "";
+  if(pending.length){
+    html += `<div style="font-size:12px;color:#d64545;font-weight:800;margin-bottom:6px">📌 در انتظار انجام (${fa(pending.length)})</div>`;
+    html += pending.map(t=>taskItemHTML(t, sid, false)).join("");
+  }
+  if(done.length){
+    html += `<div style="font-size:12px;color:#159a67;font-weight:800;margin:16px 0 6px">✅ انجام شده (${fa(done.length)})</div>`;
+    html += done.map(t=>taskItemHTML(t, sid, true)).join("");
+  }
+  el.innerHTML = html;
+}
+function taskItemHTML(t, sid, isDone){
+  return `<div class="task-item ${isDone?'done':''}">
+    <input type="checkbox" class="task-check" ${isDone?'checked':''} onchange="spToggleTask('${t.id}', this.checked)">
+    <div class="task-info">
+      <div class="task-title">${t.title}</div>
+      ${t.subject?`<div class="task-meta">📖 ${t.subject}</div>`:''}
+      ${t.desc?`<div class="task-desc">${t.desc}</div>`:''}
+      <div class="task-meta">ایجاد: ${t.createdAt} ${t.dueDate?'| مهلت: '+t.dueDate:''}</div>
+    </div>
+  </div>`;
+}
+function spToggleTask(taskId, checked){
+  if(!currentStudent) return;
+  const t = db.tasks.find(x=>x.id===taskId);
+  if(!t) return;
+  t.done = t.done || {};
+  if(checked) t.done[currentStudent.id] = true;
+  else delete t.done[currentStudent.id];
+  save();
+  spRenderTasks();
+  if(checked) toast("تکلیف انجام شد ✓");
+}
+function spRenderAbsence(){
+  if(!currentStudent) return;
+  const el = document.getElementById("spAbsenceList");
+  const rows = db.attendance.filter(a=>a.sid===currentStudent.id).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  if(!rows.length){
+    el.innerHTML = '<div class="empty">هیچ غیبتی ثبت نشده است ✅</div>';
+    return;
+  }
+  el.innerHTML = `<table>
+    <thead><tr><th>تاریخ</th><th>وضعیت</th><th>توضیحات</th></tr></thead>
+    <tbody>
+      ${rows.map(a=>{
+        const isOk = a.status === "موجه";
+        return `<tr>
+          <td>${a.date}</td>
+          <td><span class="badge ${isOk?'good':'bad'}">${isOk?'✅ موجه':'❌ غیرموجه'}</span></td>
+          <td>${a.note||"—"}</td>
+        </tr>`;
+      }).join("")}
+    </tbody>
+  </table>`;
+}
+function spMakeReport(){
+  if(!currentStudent) return;
+  const id = currentStudent.id;
+  const s = currentStudent;
+  const rows = subjects.map(sub=>{
+    const q = avg(id, sub);
+    return `<tr><td>${sub}</td><td>${q||"—"}</td><td>${q?"ثبت شده":"بدون نمره"}</td></tr>`;
+  }).join("");
+  const overall = avg(id);
+  const score = studentScore(id);
+  document.getElementById("spReportArea").innerHTML = `
+    <div style="border:1px solid var(--line);border-radius:14px;padding:18px;background:#fbfcfe">
+      <div style="text-align:center;margin-bottom:16px">
+        <h3 style="margin:0 0 6px">کارنامه توصیفی</h3>
+        <p style="margin:4px 0;font-size:13px"><strong>دبستان فرهنگیان</strong></p>
+        <p style="margin:4px 0;font-size:12px">سال تحصیلی ۱۴۰۴-۱۴۰۵ | معلم: عرفان امینی</p>
+        <p style="margin:10px 0 4px;font-size:13px">${fullName(s)}</p>
+        <p style="margin:0;font-size:11px;color:#7a8497">کد ملی: ${s.nid}</p>
+      </div>
+      <table>
+        <tr><th>درس</th><th>ارزیابی</th><th>وضعیت</th></tr>
+        ${rows}
+      </table>
+      <div style="margin-top:14px;padding-top:12px;border-top:2px solid #5b5ce2;text-align:center">
+        <b style="color:#5b5ce2">ارزیابی کلی: ${overall||"—"}</b>
+      </div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px dashed #f0d29a;text-align:center">
+        <b style="color:#d98a16">⭐ امتیاز کل: ${fa(score)}</b>
+      </div>
+    </div>`;
+}
+
+
+/* ===== داده و منطق طرح درس سالانه ===== */
+const lessonPlans = {
+  "ریاضی": [
+    ["مهر","۱","آشنایی و ارزشیابی آغازین","مرور مباحث پایه پنجم و ارزشیابی تشخیصی"],
+    ["مهر","۲","عدد و الگوهای عددی","الگوهای عددی و کشف رابطه بین اعداد"],
+    ["مهر","۳","عدد و الگوهای عددی","جمع و تفریق و محاسبات"],
+    ["مهر","۴","عدد و الگوهای عددی","بخش‌پذیری، مضرب و شمارنده"],
+    ["آبان","۱","کسر","مفهوم کسر و کسرهای مساوی"],
+    ["آبان","۲","کسر","جمع و تفریق کسرها"],
+    ["آبان","۳","کسر","ضرب و تقسیم کسرها"],
+    ["آبان","۴","کسر","حل مسئله و مرور فصل"],
+    ["آذر","۱","اعداد اعشاری","معرفی و مقایسه اعداد اعشاری"],
+    ["آذر","۲","اعداد اعشاری","جمع و تفریق اعداد اعشاری"],
+    ["آذر","۳","اعداد اعشاری","ضرب و تقسیم اعداد اعشاری"],
+    ["آذر","۴","اعداد اعشاری","حل مسئله و ارزشیابی"],
+    ["دی","۱","تقارن و مختصات","تقارن، محور و مختصات"],
+    ["دی","۲","تقارن و مختصات","رسم شکل در دستگاه مختصات"],
+    ["دی","۳","اندازه‌گیری","طول، زاویه و واحدهای اندازه‌گیری"],
+    ["دی","۴","اندازه‌گیری","تبدیل واحدها و حل مسئله"],
+    ["بهمن","۱","تناسب و درصد","مفهوم نسبت و تناسب"],
+    ["بهمن","۲","تناسب و درصد","درصد و کاربردهای آن"],
+    ["بهمن","۳","تناسب و درصد","حل مسائل کاربردی درصد"],
+    ["بهمن","۴","تناسب و درصد","مرور و ارزشیابی"],
+    ["اسفند","۱","تقریب","مفهوم تقریب و گرد کردن"],
+    ["اسفند","۲","تقریب","محاسبه تقریبی و کاربردها"],
+    ["اسفند","۳","تقریب","حل مسئله"],
+    ["اسفند","۴","تقریب","مرور – جمع‌بندی مباحث نیمسال اول و دوم"],
+    ["فروردین","۱","هندسه","خط، زاویه و انواع شکل‌ها"],
+    ["فروردین","۲","هندسه","چندضلعی‌ها"],
+    ["فروردین","۳","هندسه","محیط و مساحت"],
+    ["فروردین","۴","هندسه","حل مسئله و فعالیت عملی"],
+    ["اردیبهشت","۱","اندازه‌گیری","مساحت و حجم"],
+    ["اردیبهشت","۲","اندازه‌گیری","حجم مکعب و مکعب مستطیل"],
+    ["اردیبهشت","۳","آمار و احتمال","جمع‌آوری و نمایش داده‌ها"],
+    ["اردیبهشت","۴","آمار و احتمال","احتمال و پیش‌بینی"],
+    ["خرداد","۱","مرور جامع","مرور فصل‌های کتاب"],
+    ["خرداد","۲","حل مسئله","تمرین‌های ترکیبی و نمونه سؤال"],
+    ["خرداد","۳","آمادگی ارزشیابی","رفع اشکال و جمع‌بندی"],
+    ["خرداد","۴","ارزشیابی پایانی","آزمون و فعالیت جمع‌بندی"]
+  ],
+  "علوم": [
+    ["مهر","۱","زنگ علوم","ارزشیابی آغازین، روش علمی و مهارت مشاهده"],
+    ["مهر","۲","سرگذشت دفتر من","ثبت مشاهده‌ها و آشنایی با فرایند علم"],
+    ["مهر","۳","کارخانه کاغذسازی","مواد، ویژگی‌ها و بازیافت کاغذ"],
+    ["مهر","۴","کارخانه کاغذسازی","آزمایش و بررسی ویژگی مواد"],
+    ["آبان","۱","سفر به اعماق زمین","لایه‌های زمین و سنگ‌ها"],
+    ["آبان","۲","سفر به اعماق زمین","کانی‌ها و کاربردهای آن‌ها"],
+    ["آبان","۳","سفر به اعماق زمین","آتش‌فشان و زمین‌لرزه"],
+    ["آبان","۴","ورزش و نیرو","نیرو و اثرهای آن"],
+    ["آذر","۱","ورزش و نیرو","نیروهای کششی و فشاری"],
+    ["آذر","۲","ورزش و نیرو","اصطکاک و کاربردهای آن"],
+    ["آذر","۳","طراحی کنیم و بسازیم","حل مسئله و طراحی سازه"],
+    ["آذر","۴","طراحی کنیم و بسازیم","ساخت، آزمایش و اصلاح"],
+    ["دی","۱","طراحی کنیم و بسازیم","مرور و ارزشیابی"],
+    ["دی","۲","سالم بمانیم","بدن سالم و عوامل مؤثر بر سلامت"],
+    ["دی","۳","سالم بمانیم","تغذیه و فعالیت بدنی"],
+    ["دی","۴","سالم بمانیم","پیشگیری از بیماری‌ها"],
+    ["بهمن","۱","سفر انرژی","شکل‌های مختلف انرژی"],
+    ["بهمن","۲","سفر انرژی","تبدیل و انتقال انرژی"],
+    ["بهمن","۳","سفر انرژی","مصرف درست انرژی"],
+    ["بهمن","۴","سفر انرژی","مرور و ارزشیابی"],
+    ["اسفند","۱","شگفتی‌های برگ","ساختار برگ و فتوسنتز"],
+    ["اسفند","۲","شگفتی‌های برگ","نقش گیاهان در زندگی"],
+    ["اسفند","۳","شگفتی‌های برگ","آزمایش و مشاهده"],
+    ["اسفند","۴","شگفتی‌های برگ","مرور و جمع‌بندی"],
+    ["فروردین","۱","خزه و سرخس","تنوع گیاهان"],
+    ["فروردین","۲","خزه و سرخس","گیاهان دانه‌دار و بی‌دانه"],
+    ["فروردین","۳","سفر به دنیای جانوران","گروه‌های جانوران"],
+    ["فروردین","۴","سفر به دنیای جانوران","سازگاری و تنوع جانوران"],
+    ["اردیبهشت","۱","شگفتی‌های آفرینش","تنوع زیستی و محیط زیست"],
+    ["اردیبهشت","۲","شگفتی‌های آفرینش","زنجیره غذایی و تعادل طبیعت"],
+    ["اردیبهشت","۳","شگفتی‌های آفرینش","حفاظت از محیط زیست"],
+    ["اردیبهشت","۴","مرور جامع","مرور فصل‌ها و فعالیت‌های عملی"],
+    ["خرداد","۱","مرور جامع","مرور مباحث کتاب"],
+    ["خرداد","۲","حل مسئله","تمرین و نمونه سؤال"],
+    ["خرداد","۳","آمادگی ارزشیابی","رفع اشکال و جمع‌بندی"],
+    ["خرداد","۴","ارزشیابی پایانی","آزمون و فعالیت جمع‌بندی"]
+  ],
+  "مطالعه": [
+    ["مهر","۱","عادت مطالعه","آشنایی با کتاب‌خوانی و انتخاب کتاب مناسب"],
+    ["مهر","۲","درک مطلب","خواندن هدفمند و استخراج نکات اصلی"],
+    ["مهر","۳","خلاصه‌نویسی","تمرین خلاصه‌کردن متن"],
+    ["مهر","۴","گزارش کتاب","معرفی کتاب و بیان نظر"],
+    ["آبان","۱","داستان و روایت","خواندن و تحلیل داستان کوتاه"],
+    ["آبان","۲","شعر و ادبیات","خواندن شعر و دریافت مفهوم"],
+    ["آبان","۳","زندگی‌نامه","مطالعه زندگی افراد اثرگذار"],
+    ["آبان","۴","ارائه","ارائه کوتاه درباره کتاب خوانده‌شده"],
+    ["آذر","۱","دانش و دانستنی‌ها","مطالعه متن علمی ساده"],
+    ["آذر","۲","پرسش‌گری","طرح پرسش از متن"],
+    ["آذر","۳","یادداشت‌برداری","ثبت نکات مهم و کلیدواژه‌ها"],
+    ["آذر","۴","مرور","مرور و ارزشیابی فعالیت‌ها"],
+    ["دی","۱","مطالعه آزاد","انتخاب کتاب متناسب با علاقه"],
+    ["دی","۲","درک و استنباط","نتیجه‌گیری از متن"],
+    ["دی","۳","واژه‌آموزی","ثبت واژه‌های جدید"],
+    ["دی","۴","گزارش‌نویسی","نوشتن گزارش کوتاه"],
+    ["بهمن","۱","کتاب و رسانه","مقایسه کتاب با محتوای رسانه‌ای"],
+    ["بهمن","۲","تفکر نقاد","تشخیص نظر و واقعیت"],
+    ["بهمن","۳","مطالعه گروهی","بحث و گفت‌وگو درباره متن"],
+    ["بهمن","۴","مرور","ارزشیابی مهارت مطالعه"],
+    ["اسفند","۱","کتاب‌خوانی","خواندن داستان منتخب"],
+    ["اسفند","۲","شخصیت و پیام","بررسی شخصیت‌ها و پیام داستان"],
+    ["اسفند","۳","خلاقیت","بازنویسی یا ادامه داستان"],
+    ["اسفند","۴","جمع‌بندی","مرور فعالیت‌های نیمسال"],
+    ["فروردین","۱","مطالعه پژوهشی","جست‌وجوی اطلاعات از منابع مناسب"],
+    ["فروردین","۲","گردآوری اطلاعات","دسته‌بندی اطلاعات"],
+    ["فروردین","۳","ارائه پژوهش","ارائه یافته‌ها"],
+    ["فروردین","۴","بازخورد","اصلاح و تکمیل کار"],
+    ["اردیبهشت","۱","مطالعه موضوعی","مطالعه یک موضوع انتخابی"],
+    ["اردیبهشت","۲","درک عمیق","مقایسه و ارتباط مطالب"],
+    ["اردیبهشت","۳","معرفی کتاب","معرفی کتاب منتخب"],
+    ["اردیبهشت","۴","مرور","مرور و ارزشیابی"],
+    ["خرداد","۱","مرور جامع","مرور کتاب‌های خوانده‌شده"],
+    ["خرداد","۲","نمونه سؤال","تمرین درک مطلب"],
+    ["خرداد","۳","جمع‌بندی","رفع اشکال"],
+    ["خرداد","۴","ارزشیابی پایانی","ارائه و فعالیت جمع‌بندی"]
+  ],
+  "هدیه": [
+    ["مهر","۱","درس‌های آغازین","آشنایی با مفاهیم اصلی و نعمت‌های الهی"],
+    ["مهر","۲","خداشناسی","نشانه‌های خداوند در آفرینش"],
+    ["مهر","۳","شکرگزاری","نعمت‌ها و راه‌های شکرگزاری"],
+    ["مهر","۴","عمل به آموخته‌ها","فعالیت و ارزشیابی"],
+    ["آبان","۱","نماز","اهمیت نماز و آداب آن"],
+    ["آبان","۲","قرآن و زندگی","آشنایی با پیام‌های قرآنی"],
+    ["آبان","۳","پیامبران","نقش پیامبران در هدایت انسان"],
+    ["آبان","۴","الگوها","شناخت الگوهای دینی و اخلاقی"],
+    ["آذر","۱","حضرت محمد(ص)","اخلاق و رفتار پیامبر اکرم(ص)"],
+    ["آذر","۲","اهل‌بیت(ع)","محبت و پیروی از اهل‌بیت(ع)"],
+    ["آذر","۳","اخلاق فردی","راستگویی، امانت‌داری و مسئولیت‌پذیری"],
+    ["آذر","۴","مرور","مرور و ارزشیابی"],
+    ["دی","۱","دوستی","دوست خوب و انتخاب دوست"],
+    ["دی","۲","احترام","احترام به خانواده، معلم و دیگران"],
+    ["دی","۳","کمک به دیگران","همدلی و یاری‌رسانی"],
+    ["دی","۴","فعالیت","تمرین و ارزشیابی"],
+    ["بهمن","۱","انقلاب و مسئولیت","مسئولیت اجتماعی و میهن‌دوستی"],
+    ["بهمن","۲","عدالت","عدالت و رعایت حق دیگران"],
+    ["بهمن","۳","انتخاب درست","تصمیم‌گیری اخلاقی"],
+    ["بهمن","۴","مرور","مرور و ارزشیابی"],
+    ["اسفند","۱","آداب زندگی","نظم و برنامه‌ریزی"],
+    ["اسفند","۲","نوروز","آداب پسندیده و صله رحم"],
+    ["اسفند","۳","محبت و بخشش","گذشت و مهربانی"],
+    ["اسفند","۴","جمع‌بندی","مرور مباحث"],
+    ["فروردین","۱","معاد","آشنایی با مفهوم معاد"],
+    ["فروردین","۲","مسئولیت اعمال","نتیجه رفتار و انتخاب‌های انسان"],
+    ["فروردین","۳","عبادت","عبادت و ارتباط با خداوند"],
+    ["فروردین","۴","فعالیت","تمرین و ارزشیابی"],
+    ["اردیبهشت","۱","امامان","آشنایی با سیره امامان(ع)"],
+    ["اردیبهشت","۲","حضرت علی(ع)","عدالت، شجاعت و اخلاق در سیره حضرت علی(ع)"],
+    ["اردیبهشت","۳","مهدویت","امید و انتظار"],
+    ["اردیبهشت","۴","مرور جامع","مرور درس‌ها و فعالیت‌ها"],
+    ["خرداد","۱","مرور جامع","مرور درس‌های کتاب"],
+    ["خرداد","۲","تمرین","سؤال‌های ترکیبی و گفت‌وگو"],
+    ["خرداد","۳","آمادگی ارزشیابی","رفع اشکال و جمع‌بندی"],
+    ["خرداد","۴","ارزشیابی پایانی","آزمون و فعالیت جمع‌بندی"]
+  ]
+};
+const lessonMonthClass={"مهر":"month-mehr","آبان":"month-aban","آذر":"month-azar","دی":"month-dey","بهمن":"month-bahman","اسفند":"month-esfand","فروردین":"month-farvardin","اردیبهشت":"month-ordibehesht","خرداد":"month-khordad"};
+const lessonMonthIcon={"مهر":"🍃","آبان":"☔","آذر":"❄️","دی":"🧶","بهمن":"💗","اسفند":"🌸","فروردین":"🌿","اردیبهشت":"☀️","خرداد":"🍉"};
+function lessonDoneKey(subject,index){return `${subject}__${index}`;}
+function lessonIsDone(subject,index){return !!(db.lessonPlanDone||{})[lessonDoneKey(subject,index)];}
+function toggleLessonPlan(subject,index,checked){
+  db.lessonPlanDone=db.lessonPlanDone||{};
+  const k=lessonDoneKey(subject,index);
+  if(checked) db.lessonPlanDone[k]=true; else delete db.lessonPlanDone[k];
+  save(); renderLessonPlans();
+}
+function renderLessonPlans(){
+  const tabs=document.getElementById('lessonPlanTabs'), panels=document.getElementById('lessonPlanPanels');
+  if(!tabs||!panels) return;
+  const names=Object.keys(lessonPlans);
+  tabs.innerHTML=names.map((name,i)=>`<button class="lesson-plan-tab ${i===0?'active':''}" onclick="showLessonPlan('${name}',this)">${name}</button>`).join('');
+  panels.innerHTML=names.map((name,pi)=>{
+    const rows=lessonPlans[name];
+    const grouped=[]; rows.forEach((r,i)=>{let g=grouped.find(x=>x.month===r[0]);if(!g){g={month:r[0],rows:[]};grouped.push(g)}g.rows.push({r,i})});
+    let body='';
+    grouped.forEach(g=>{
+      const cls=lessonMonthClass[g.month]||'';
+      g.rows.forEach((x,j)=>{
+        const done=lessonIsDone(name,x.i);
+        body+=`<tr class="${cls} ${done?'lesson-done':''}">
+          ${j===0?`<td class="lesson-month" rowspan="${g.rows.length}">${g.month}<div style="font-size:25px;margin-top:5px">${lessonMonthIcon[g.month]||'📚'}</div></td>`:''}
+          <td class="lesson-week">${x.r[1]}</td><td class="lesson-topic">${x.r[2]}</td><td class="lesson-content">${x.r[3]}</td>
+          <td style="width:62px"><input class="lesson-check" type="checkbox" ${done?'checked':''} onchange="toggleLessonPlan('${name}',${x.i},this.checked)" title="این هفته انجام شد"></td>
+        </tr>`;
+      });
+    });
+    return `<div class="lesson-plan-panel ${pi===0?'active':''}" id="lessonPanel_${pi}">
+      <div class="lesson-table-wrap"><table class="lesson-table"><thead><tr><th style="width:105px">ماه</th><th style="width:65px">هفته</th><th style="width:220px">فصل / موضوع</th><th>محتوای آموزشی و فعالیت‌ها</th><th style="width:70px">انجام شد</th></tr></thead><tbody>${body}</tbody></table></div>
+      <div class="lesson-bottom-grid">
+        <div class="lesson-info-card"><h4>📋 شیوه ارزشیابی</h4><ul><li>ارزشیابی مستمر</li><li>پرسش و پاسخ</li><li>تمرین و فعالیت</li><li>آزمون‌های کتبی</li></ul></div>
+        <div class="lesson-info-card"><h4>📚 روش تدریس</h4><ul><li>تدریس فعال</li><li>کار گروهی</li><li>حل مسئله</li><li>فعالیت‌های کاربردی</li></ul></div>
+        <div class="lesson-info-card"><h4>✏️ وسایل آموزشی</h4><ul><li>کتاب درسی</li><li>تخته و ماژیک</li><li>وسایل کمک آموزشی</li><li>ابزار و فعالیت عملی</li></ul></div>
+        <div class="lesson-info-card"><h4>🎯 اهداف</h4><ul><li>تقویت مهارت حل مسئله</li><li>درک مفاهیم</li><li>ایجاد علاقه به یادگیری</li><li>کاربرد در زندگی روزمره</li></ul></div>
+        <div class="lesson-info-card lesson-year"><h4>📅 سال تحصیلی</h4><div class="big">۱۴۰۴ - ۱۴۰۵</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function showLessonPlan(name,btn){
+  document.querySelectorAll('.lesson-plan-tab').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const names=Object.keys(lessonPlans);
+  const idx=names.indexOf(name);
+  document.querySelectorAll('.lesson-plan-panel').forEach((x,i)=>x.classList.toggle('active',i===idx));
+  const title=document.getElementById('lessonPlanTitle');
+  if(title) title.textContent=`${name} ششم ابتدایی`;
+}
+
+updateDashboard();
+renderLessonPlans();
+renderGroups();
+renderMonitor();
+renderSport();
+renderReminders();
+renderTasks();
+renderTaskOffenders();
+renderScoreboard();
+renderBehavior();
+</script>
+</body>
+</html>
